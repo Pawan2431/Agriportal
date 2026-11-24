@@ -1,0 +1,19 @@
+{
+  "name": "agriprice-portal",
+  "version": "1.0.0",
+  "description": "Agriculture Market Price Portal with Farmer Advisory Services - Mobile Computing (ITA0334 / CSA4309)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "agriculture",
+    "mandi-prices",
+    "apmc",
+    "farmer-advisory",
+    "crop-prices",
+    "price-prediction"
+  ],
+  "author": "P. Pawan Teja, M. Koushik, S. Ravi Sankar Reddy",
+  "license": "MIT"
+}

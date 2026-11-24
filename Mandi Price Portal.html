@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriPrice Portal - Agriculture Market Price &amp; Farmer Advisory Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-green-dark: #0f3d23;
+      --brand-green: #14532d;
+      --brand-green-light: #166534;
+      --brand-green-subtle: #ecfdf5;
+      --brand-green-border: #a7f3d0;
+      
+      --accent-green: #16a34a;
+      --accent-red: #dc2626;
+      --accent-yellow: #ca8a04;
+      --accent-yellow-bg: #fef9c3;
+      --accent-yellow-border: #fde047;
+      
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
+
+      --font: 'Plus Jakarta Sans', 'Noto Sans Telugu', 'Gautami', 'Noto Sans Tamil', 'Latha', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ══ HEADER ══ */
+    .header {
+      background: var(--brand-green);
+      color: #ffffff;
+      padding: 0 32px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .brand-sub {
+      font-size: 11.5px;
+      opacity: 0.85;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.22);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.9); }
+    }
+    .select-lang {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .select-lang:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .select-lang option {
+      background: #14532d;
+      color: #ffffff;
+    }
+    .user-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.14);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .user-badge:hover {
+      background: rgba(255,255,255,0.24);
+    }
+    .role-chip {
+      background: #fde047;
+      color: #713f12;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .role-chip.admin-active {
+      background: #22c55e;
+      color: #ffffff;
+    }
+
+    /* Navigation Tabs */
+    .nav-bar {
+      display: flex;
+      gap: 6px;
+      padding: 8px 0;
+      overflow-x: auto;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.85);
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: #ffffff;
+    }
+    .nav-btn.active {
+      background: #ffffff;
+      color: var(--brand-green);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* ══ MAIN CONTAINER ══ */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 28px 48px;
+    }
+
+    /* Welcome Intelligence Banner */
+    .welcome-card {
+      background: var(--brand-green-subtle);
+      border: 1px solid var(--brand-green-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .welcome-text h1 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--brand-green);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .welcome-text p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .welcome-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--brand-green-border);
+      border-radius: var(--radius-md);
+      padding: 10px 18px;
+      text-align: center;
+      min-width: 120px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--brand-green);
+      font-family: var(--mono);
+    }
+    .stat-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Crop Selector Chips */
+    .crop-chips {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .crop-chip {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .crop-chip:hover {
+      border-color: var(--brand-green-border);
+      color: var(--brand-green);
+      transform: translateY(-1px);
+    }
+    .crop-chip.active {
+      background: var(--brand-green);
+      color: #ffffff;
+      border-color: var(--brand-green);
+      box-shadow: 0 2px 8px rgba(20, 83, 45, 0.25);
+    }
+
+    /* ══ LAYOUTS & PANELS ══ */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .prices-layout {
+      display: grid;
+      grid-template-columns: 1fr 370px;
+      gap: 24px;
+    }
+
+    /* ══ CARDS ══ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .sub-meta {
+      font-size: 12px;
+      color: var(--text-subtle);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .badge-best {
+      background: var(--accent-yellow-bg);
+      border: 1px solid var(--accent-yellow-border);
+      color: var(--accent-yellow);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ══ PRICE COMPARISON TABLE ══ */
+    .tbl-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    th {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 12px 14px;
+      border-bottom: 1.5px solid var(--border);
+      background: #fafbfc;
+    }
+    td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background: #fbfdfe;
+    }
+    .market-name {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-weight: 700;
+    }
+    .rate-badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #854d0e;
+      background: #fef08a;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .modal-price {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--brand-green);
+      font-family: var(--mono);
+    }
+    .spread-up {
+      color: var(--accent-green);
+      font-weight: 700;
+      font-family: var(--mono);
+      background: #dcfce7;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .spread-dn {
+      color: var(--accent-red);
+      font-weight: 700;
+      font-family: var(--mono);
+      background: #fee2e2;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .btn-trend {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn-trend:hover {
+      background: var(--brand-green);
+      color: #ffffff;
+      border-color: var(--brand-green);
+    }
+
+    /* ══ RIGHT SIDE WIDGETS ══ */
+    .right-widgets {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .weather-card {
+      background: linear-gradient(145deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+    .weather-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      opacity: 0.95;
+    }
+    .weather-temp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 8px 0 4px;
+    }
+    .weather-temp {
+      font-size: 40px;
+      font-weight: 800;
+      font-family: var(--mono);
+      letter-spacing: -0.03em;
+    }
+    .weather-icon {
+      font-size: 44px;
+    }
+    .weather-station {
+      font-size: 12px;
+      opacity: 0.85;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .weather-metrics {
+      display: flex;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .advisory-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .adv-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .adv-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-favorable {
+      background: #dcfce7;
+      color: var(--accent-green);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+    }
+    .adv-callout {
+      background: #f0fdf4;
+      border-left: 3px solid var(--accent-green);
+      padding: 10px 12px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 13px;
+      color: var(--brand-green);
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .adv-tip {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .btn-guide {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #ffffff;
+      border: 1.5px solid var(--brand-green);
+      color: var(--brand-green);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn-guide:hover {
+      background: var(--brand-green);
+      color: #ffffff;
+    }
+
+    /* ══ TAB 2: PRICE TRENDS ══ */
+    .trends-view {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+    }
+    .mc-val {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: var(--mono);
+      line-height: 1.1;
+    }
+    .mc-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+    .chart-container {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      position: relative;
+    }
+    .trend-chart {
+      width: 100%;
+      height: 240px;
+    }
+
+    /* ══ TAB 3: FARMER ADVISORY ══ */
+    .advisory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .adv-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .adv-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--brand-green-border);
+    }
+    .adv-tile-hdr {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--brand-green);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .adv-tile-body {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+    .adv-tile-tag {
+      display: inline-block;
+      width: fit-content;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-green);
+      background: #dcfce7;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* ══ ADMIN CONSOLE STYLES ══ */
+    .admin-auth-card {
+      max-width: 480px;
+      margin: 30px auto;
+      background: #0b1329;
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    .admin-auth-icon {
+      width: 58px;
+      height: 58px;
+      background: rgba(34, 197, 94, 0.18);
+      border-radius: var(--radius-lg);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+    .admin-auth-card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .admin-auth-card p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+      line-height: 1.45;
+    }
+    .btn-instant-demo {
+      width: 100%;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      border: 1px solid #475569;
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+      margin-bottom: 20px;
+    }
+    .btn-instant-demo:hover {
+      background: #334155;
+      border-color: #38bdf8;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #64748b;
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #1e293b;
+    }
+    .auth-divider::before { margin-right: 10px; }
+    .auth-divider::after { margin-left: 10px; }
+
+    .admin-input-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .admin-input-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .admin-input-dark {
+      width: 100%;
+      background: #030712;
+      border: 1px solid #1f2937;
+      color: #f9fafb;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-input-dark:focus {
+      border-color: #3b82f6;
+    }
+    .btn-admin-signin {
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+    .btn-admin-signin:hover {
+      background: #1d4ed8;
+    }
+
+    /* Admin Workspace Bar */
+    .admin-workspace-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .admin-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-logout {
+      background: #dc2626;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-logout:hover {
+      background: #b91c1c;
+    }
+
+    /* Price Management Table in Admin */
+    .price-admin-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+    .price-admin-grid th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .price-admin-grid td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .input-table {
+      width: 95px;
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--mono);
+      outline: none;
+    }
+    .input-table:focus {
+      border-color: var(--brand-green);
+    }
+    .btn-save-row {
+      background: var(--brand-green);
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-save-row:hover {
+      background: var(--brand-green-light);
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--brand-green);
+    }
+    .btn-submit {
+      background: var(--brand-green);
+      color: #ffffff;
+      border: none;
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background: var(--brand-green-light);
+    }
+
+    /* Floating Toast Notification */
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 4px solid var(--accent-green);
+    }
+    .toast-notify.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand-wrap">
+        <div class="brand-icon">🌱</div>
+        <div>
+          <div class="brand-name">AgriPrice Portal</div>
+          <div class="brand-sub" id="header-brand-sub">Agriculture Market Price &amp; Farmer Advisory Services • CSA4309 / ITA0334</div>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="sync-badge">
+          <span class="sync-dot"></span>
+          <span id="sync-text">Agri Market Sync: Live</span>
+        </div>
+        <select class="select-lang" id="select-lang" aria-label="Select Language">
+          <option value="en">English (EN)</option>
+          <option value="te">Telugu (తెలుగు)</option>
+          <option value="ta">Tamil (தமிழ்)</option>
+          <option value="hi">Hindi (हिन्दी)</option>
+        </select>
+        <div class="user-badge" id="user-badge-wrap" onclick="toggleAdminNav()" title="Click to open Admin Login &amp; Price Controller">
+          <span id="user-icon">👤</span>
+          <span id="user-badge-text">Farmer: Guest</span>
+          <span class="role-chip" id="role-chip">Admin Login</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar" aria-label="Main Navigation">
+      <a href="#prices" class="nav-btn active" data-view="prices" id="nav-prices">🏷️ Agri Market Prices</a>
+      <a href="#trends" class="nav-btn" data-view="trends" id="nav-trends">📈 Price Trends</a>
+      <a href="#advisory" class="nav-btn" data-view="advisory" id="nav-advisory">🌱 Farmer Advisory</a>
+      <a href="#calculator" class="nav-btn" data-view="calculator" id="nav-calculator">🧮 Fertilizer Calculator</a>
+      <a href="#farm" class="nav-btn" data-view="farm" id="nav-farm">🚜 My Farm Profile</a>
+      <a href="#trader" class="nav-btn" data-view="trader" id="nav-trader">🏪 Trader Entry</a>
+      <a href="#admin" class="nav-btn" data-view="admin" id="nav-admin">🛡️ Admin Console</a>
+    </nav>
+  </header>
+
+  <!-- ══ MAIN BODY ══ -->
+  <main class="container">
+    
+    <!-- Welcome Intelligence Banner -->
+    <section class="welcome-card">
+      <div class="welcome-text">
+        <h1 id="welcome-title">Welcome to AgriPrice Intelligence Platform</h1>
+        <p id="welcome-sub">Empowering farmers with transparent inter-market price discovery, automated modal analytics, and localized weather-based agronomy advice.</p>
+      </div>
+      <div class="welcome-stats">
+        <div class="stat-box">
+          <div class="stat-val">6</div>
+          <div class="stat-lbl" id="stat-markets-lbl">Agri Markets Monitored</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">8</div>
+          <div class="stat-lbl" id="stat-crops-lbl">Crops Tracked</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">+₹380/q</div>
+          <div class="stat-lbl" id="stat-spread-lbl">Max Market Spread</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Crop Selector Chips -->
+    <nav class="crop-chips" aria-label="Crop Selectors" id="crop-chips">
+      <button class="crop-chip active" data-crop="rice">🌾 Rice</button>
+      <button class="crop-chip" data-crop="wheat">🌾 Wheat</button>
+      <button class="crop-chip" data-crop="tomato">🍅 Tomato</button>
+      <button class="crop-chip" data-crop="onion">🧅 Onion</button>
+      <button class="crop-chip" data-crop="cotton">☁️ Cotton</button>
+      <button class="crop-chip" data-crop="groundnut">🥜 Groundnut</button>
+      <button class="crop-chip" data-crop="maize">🌽 Maize</button>
+      <button class="crop-chip" data-crop="turmeric">🧂 Turmeric</button>
+    </nav>
+
+    <!-- ══ TAB 1: AGRI MARKET PRICES ══ -->
+    <div class="view-panel active" id="view-prices">
+      <div class="prices-layout">
+        <!-- Market Price Comparison Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span id="txt-crop-title">Rice</span> <span id="txt-comparison-suffix">– Inter-Market Daily Price Comparison</span>
+                <span class="badge-best" id="txt-best-market">Best Agri Market: Guntur (₹2,825/Qtl)</span>
+              </div>
+              <div class="sub-meta" id="txt-sample-meta">Live Sample Date: Oct 31, 2026 • Updated hourly</div>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th id="th-market">AGRI MARKET</th>
+                  <th id="th-state">STATE</th>
+                  <th id="th-arrivals">ARRIVALS (QTL)</th>
+                  <th id="th-min">MIN (₹)</th>
+                  <th id="th-max">MAX (₹)</th>
+                  <th id="th-modal">MODAL PRICE</th>
+                  <th id="th-spread">7-DAY SPREAD</th>
+                  <th id="th-action">ACTION</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-prices-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Side: Weather & Selling Tip -->
+        <div class="right-widgets">
+          <!-- Weather Card -->
+          <div class="weather-card">
+            <div class="weather-title" id="weather-condition">Partly Cloudy &amp; Humid</div>
+            <div class="weather-temp-row">
+              <span class="weather-temp">31°C</span>
+              <span class="weather-icon">⛅</span>
+            </div>
+            <div class="weather-station" id="weather-station-lbl">Station: Coimbatore Agri Research Zone</div>
+            <div class="weather-metrics">
+              <span id="weather-hum">💧 Humidity: 78%</span>
+              <span id="weather-rain">🌧️ Rain Prob: 20%</span>
+              <span id="weather-wind">💨 Wind: 12 km/h</span>
+            </div>
+          </div>
+
+          <!-- Advisory Card -->
+          <div class="advisory-box">
+            <div class="adv-header">
+              <div class="adv-title" id="adv-card-title">💡 Today's Selling &amp; Farm Advisory</div>
+              <span class="badge-favorable" id="adv-market-badge">Favorable Market</span>
+            </div>
+            <div class="adv-callout" id="adv-callout-text">
+              Selling in <strong>Guntur Agri Market</strong> yields <strong>₹600 more per quintal</strong> than in Madurai.
+            </div>
+            <div class="adv-tip" id="adv-tip-text">
+              <strong>Selling Tip:</strong> Today's modal rate of ₹2,825 is at the upper tier of the 30-day spectrum. Farmers near Andhra Pradesh are advised to clear mature stocks.
+            </div>
+            <a href="#advisory" class="btn-guide" id="btn-guide-link">View Detailed Cultivation, Pest &amp; Fertilizer Guide →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 2: PRICE TRENDS ══ -->
+    <div class="view-panel" id="view-trends">
+      <div class="trends-view">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title" id="trend-main-title">30–Day Modal Price Trend &amp; Historical Analysis</div>
+              <div class="sub-meta" id="trend-sub-title">Interactive visual trend for Rice in Coimbatore Agri Market</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <label for="select-trend-market" id="lbl-trend-market" style="font-size:13px;font-weight:700">Select Agri Market:</label>
+              <select id="select-trend-market" class="form-control" style="width:240px">
+                <option value="Coimbatore">Coimbatore (Tamil Nadu)</option>
+                <option value="Guntur">Guntur (Andhra Pradesh)</option>
+                <option value="Chennai">Chennai (Tamil Nadu)</option>
+                <option value="Hyderabad">Hyderabad (Telangana)</option>
+                <option value="Salem">Salem (Tamil Nadu)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="mc-val" style="color:var(--accent-green)" id="mc-today">₹2,360</div>
+              <div class="mc-lbl" id="lbl-mc-today">Today's Modal Price</div>
+            </div>
+            <div class="metric-card">
+              <div class="mc-val" style="color:var(--brand-green)" id="mc-avg">₹2,432</div>
+              <div class="mc-lbl" id="lbl-mc-avg">30–Day Average</div>
+            </div>
+            <div class="metric-card">
+              <div class="mc-val" style="color:var(--accent-green)" id="mc-peak">₹2,520</div>
+              <div class="mc-lbl" id="lbl-mc-peak">30–Day Peak High</div>
+            </div>
+            <div class="metric-card">
+              <div class="mc-val" style="color:var(--accent-red)" id="mc-trough">₹2,360</div>
+              <div class="mc-lbl" id="lbl-mc-trough">30–Day Trough Low</div>
+            </div>
+          </div>
+
+          <!-- SVG Chart -->
+          <div class="chart-container">
+            <svg class="trend-chart" viewBox="0 0 900 240" id="svg-trend">
+              <!-- Grid lines -->
+              <line x1="80" y1="30" x2="880" y2="30" stroke="#f1f5f9" stroke-width="1.5" />
+              <line x1="80" y1="120" x2="880" y2="120" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4" />
+              <line x1="80" y1="210" x2="880" y2="210" stroke="#f1f5f9" stroke-width="1.5" />
+
+              <!-- Labels Y -->
+              <text x="15" y="35" font-size="12" fill="#64748b" font-weight="600" id="ch-y-peak">₹2,520</text>
+              <text x="15" y="125" font-size="12" fill="#64748b" font-weight="600" id="ch-y-avg">Avg ₹2,432</text>
+              <text x="15" y="215" font-size="12" fill="#64748b" font-weight="600" id="ch-y-low">₹2,360</text>
+
+              <!-- Polygon gradient fill -->
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#22c55e" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="#22c55e" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+              <polygon id="chart-poly" points="80,180 120,160 160,190 200,170 240,140 280,150 320,180 360,165 400,150 440,185 480,135 520,135 560,70 600,85 640,80 680,95 720,180 760,190 800,170 840,210 840,210 80,210" fill="url(#chartGrad)" />
+
+              <!-- Polyline path -->
+              <polyline id="chart-line" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                points="80,180 120,160 160,190 200,170 240,140 280,150 320,180 360,165 400,150 440,185 480,135 520,135 560,70 600,85 640,80 680,95 720,180 760,190 800,170 840,210" />
+
+              <!-- Dot marker on current date -->
+              <circle id="chart-dot" cx="840" cy="210" r="6" fill="#ca8a04" stroke="#ffffff" stroke-width="2" />
+
+              <!-- X-Axis Labels -->
+              <text x="80" y="235" font-size="12" fill="#64748b" id="ch-days-30">30 Days Ago</text>
+              <text x="460" y="235" font-size="12" fill="#64748b" text-anchor="middle" id="ch-days-15">15 Days Ago</text>
+              <text x="840" y="235" font-size="12" fill="#16a34a" font-weight="700" text-anchor="end" id="ch-today-lbl">Today (₹2,360)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 3: FARMER ADVISORY ══ -->
+    <div class="view-panel" id="view-advisory">
+      <div class="advisory-view">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title" id="adv-main-title">🌱 Agronomic Guidance &amp; Diagnostic Services</div>
+              <div class="sub-meta" id="adv-main-sub">Scientific recommendations compiled from ICAR / TNAU agricultural research datasets</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <label for="select-weather-sim" id="lbl-weather-sim" style="font-size:13px;font-weight:700">Simulate Weather:</label>
+              <select id="select-weather-sim" class="form-control" style="width:230px">
+                <option>⛅ Cloudy &amp; High Humidity</option>
+                <option>☀️ Dry &amp; High Temperature</option>
+                <option>🌧️ Heavy Rainfall Expected</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="advisory-grid" id="adv-tiles-container">
+            <!-- Dynamically populated based on active crop -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 4: FERTILIZER CALCULATOR ══ -->
+    <div class="view-panel" id="view-calculator">
+      <div class="card" style="max-width:720px;margin:0 auto">
+        <div class="card-title" id="calc-main-title" style="margin-bottom:8px">🧮 Scientific Fertilizer &amp; NPK Calculator</div>
+        <p class="sub-meta" id="calc-main-sub" style="margin-bottom:20px">Compute customized Urea, DAP, and Potash (MOP) quantities based on crop requirement and farm acreage.</p>
+        
+        <form id="calc-form">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label for="fc-crop" id="lbl-fc-crop">Select Target Crop</label>
+              <select id="fc-crop" class="form-control">
+                <option value="rice">Rice (Paddy)</option>
+                <option value="wheat">Wheat</option>
+                <option value="tomato">Tomato</option>
+                <option value="onion">Onion</option>
+                <option value="cotton">Cotton</option>
+                <option value="groundnut">Groundnut</option>
+                <option value="maize">Maize</option>
+                <option value="turmeric">Turmeric</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fc-acres" id="lbl-fc-acres">Farm Area (in Acres)</label>
+              <input type="number" id="fc-acres" class="form-control" value="2.5" min="0.1" step="0.1" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-calc-submit" style="margin-top:6px">Calculate Required Fertilizers</button>
+        </form>
+
+        <div id="calc-results" style="margin-top:24px;padding:20px;background:#f8fafc;border-radius:var(--radius-md);border:1px solid var(--border)">
+          <div id="res-doses-title" style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--brand-green)">Recommended Doses for 2.5 Acres of Rice:</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+            <div style="background:#fff;padding:12px;border-radius:6px;border:1px solid var(--border);text-align:center">
+              <div style="font-size:22px;font-weight:800;color:var(--brand-green)" id="res-dap">125 kg</div>
+              <div style="font-size:11px;font-weight:700;color:var(--text-subtle);text-transform:uppercase" id="lbl-dap">DAP (Basal)</div>
+            </div>
+            <div style="background:#fff;padding:12px;border-radius:6px;border:1px solid var(--border);text-align:center">
+              <div style="font-size:22px;font-weight:800;color:var(--brand-green)" id="res-mop">50 kg</div>
+              <div style="font-size:11px;font-weight:700;color:var(--text-subtle);text-transform:uppercase" id="lbl-mop">MOP (Potash)</div>
+            </div>
+            <div style="background:#fff;padding:12px;border-radius:6px;border:1px solid var(--border);text-align:center">
+              <div style="font-size:22px;font-weight:800;color:var(--brand-green)" id="res-urea">112.5 kg</div>
+              <div style="font-size:11px;font-weight:700;color:var(--text-subtle);text-transform:uppercase" id="lbl-urea">Urea (Split)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 5: MY FARM PROFILE ══ -->
+    <div class="view-panel" id="view-farm">
+      <div class="card" style="max-width:720px;margin:0 auto">
+        <div class="card-title" id="farm-main-title" style="margin-bottom:8px">🚜 Registered Farmer &amp; Holding Profile</div>
+        <p class="sub-meta" id="farm-main-sub" style="margin-bottom:20px">Manage your agricultural plot records, active crops, and alert subscriptions.</p>
+
+        <form id="farm-form">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label id="lbl-fp-name">Farmer Name</label>
+              <input type="text" class="form-control" value="P. Pawan Teja" id="fp-name">
+            </div>
+            <div class="form-group">
+              <label id="lbl-fp-mobile">Contact Mobile</label>
+              <input type="tel" class="form-control" value="+91 98765 43210" id="fp-mobile">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label id="lbl-fp-loc">Farm Location / District</label>
+              <input type="text" class="form-control" value="Coimbatore, Tamil Nadu" id="fp-loc">
+            </div>
+            <div class="form-group">
+              <label id="lbl-fp-area">Total Land Holding</label>
+              <input type="text" class="form-control" value="4.5 Acres" id="fp-area">
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-fp-update" style="margin-top:6px">Update Profile Details</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ TAB 6: TRADER ENTRY ══ -->
+    <div class="view-panel" id="view-trader">
+      <div class="card" style="max-width:720px;margin:0 auto">
+        <div class="card-title" id="trader-main-title" style="margin-bottom:8px">🏪 APMC Mandi Trader &amp; Arrival Entry</div>
+        <p class="sub-meta" id="trader-main-sub" style="margin-bottom:20px">Submit today's market arrivals, minimum rate, maximum auction bid, and modal rate for instantaneous farmer synchronization.</p>
+
+        <form id="trader-form">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label id="lbl-tf-crop">Commodity</label>
+              <select id="tf-crop" class="form-control">
+                <option value="rice">Rice</option>
+                <option value="wheat">Wheat</option>
+                <option value="tomato">Tomato</option>
+                <option value="onion">Onion</option>
+                <option value="cotton">Cotton</option>
+                <option value="groundnut">Groundnut</option>
+                <option value="maize">Maize</option>
+                <option value="turmeric">Turmeric</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label id="lbl-tf-market">Agri Market (Mandi)</label>
+              <select id="tf-market" class="form-control">
+                <option value="Guntur">Guntur (Andhra Pradesh)</option>
+                <option value="Chennai">Chennai (Tamil Nadu)</option>
+                <option value="Hyderabad">Hyderabad (Telangana)</option>
+                <option value="Coimbatore">Coimbatore (Tamil Nadu)</option>
+                <option value="Salem">Salem (Tamil Nadu)</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+            <div class="form-group">
+              <label id="lbl-tf-arr">Arrivals (Qtl)</label>
+              <input type="number" id="tf-arr" class="form-control" value="500" required>
+            </div>
+            <div class="form-group">
+              <label id="lbl-tf-min">Min (₹)</label>
+              <input type="number" id="tf-min" class="form-control" value="2300" required>
+            </div>
+            <div class="form-group">
+              <label id="lbl-tf-max">Max (₹)</label>
+              <input type="number" id="tf-max" class="form-control" value="2700" required>
+            </div>
+            <div class="form-group">
+              <label id="lbl-tf-mod">Modal (₹)</label>
+              <input type="number" id="tf-mod" class="form-control" value="2500" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-trader-submit" style="margin-top:6px">Post Market Rates to Portal</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ TAB 7: ADMIN CONSOLE ══ -->
+    <div class="view-panel" id="view-admin">
+      
+      <!-- SUB-VIEW A: ADMIN LOGIN (Visible if not authenticated) -->
+      <div id="admin-login-container" style="display:none">
+        <div class="admin-auth-card">
+          <div class="admin-auth-icon">🛡️</div>
+          <h2>TaskFlow &bull; Admin Portal</h2>
+          <p>Authorized APMC Market Officers &amp; System Administrators. Sign in to update, override, and broadcast crop prices across all mandis.</p>
+
+          <button type="button" class="btn-instant-demo" onclick="performAdminLogin('admin@agriprice.gov.in')">
+            <span>⚡</span>
+            <span>Instant Demo Admin Access (1-Click)</span>
+          </button>
+
+          <div class="auth-divider">or continue with email</div>
+
+          <form id="admin-login-form" onsubmit="handleAdminLoginSubmit(event)">
+            <div class="admin-input-group">
+              <label>Work Email</label>
+              <input type="email" class="admin-input-dark" id="adm-email" value="admin@agriprice.gov.in" required>
+            </div>
+            <div class="admin-input-group">
+              <label>Password</label>
+              <input type="password" class="admin-input-dark" id="adm-pass" value="••••••••" required>
+            </div>
+            <button type="submit" class="btn-admin-signin">Sign In to Admin Workspace</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SUB-VIEW B: ADMIN DASHBOARD & LIVE PRICE OVERRIDE (Visible when authenticated) -->
+      <div id="admin-dash-container" style="display:none">
+        
+        <!-- Admin Workspace Bar -->
+        <div class="admin-workspace-bar">
+          <div class="admin-user-info">
+            <span style="font-size:22px">🛡️</span>
+            <div>
+              <div style="font-weight:800;font-size:15px" id="adm-welcome-user">Administrator: P. Pawan Teja (Super Admin)</div>
+              <div style="font-size:11.5px;color:#94a3b8">Role: APMC Price Regulatory Authority &bull; Full CRUD Override Privileges</div>
+            </div>
+          </div>
+          <button class="btn-logout" onclick="performAdminLogout()">Logout</button>
+        </div>
+
+        <!-- ══ REAL-TIME PRICE CONTROLLER & OVERRIDE ══ -->
+        <div class="card" style="margin-bottom:24px;border:2px solid var(--brand-green-border)">
+          <div class="card-header" style="border-bottom:1px solid var(--border);padding-bottom:14px">
+            <div>
+              <div class="card-title" style="color:var(--brand-green)">
+                <span>🌾 APMC Live Market Price Manager &amp; Override</span>
+                <span class="role-chip admin-active">Price Override Active</span>
+              </div>
+              <div class="sub-meta">Directly modify, edit, or broadcast new crop rates for any southern mandi. Changes reflect instantaneously across all farmer views!</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <label for="adm-crop-select" style="font-size:13px;font-weight:700">Select Crop to Manage:</label>
+              <select id="adm-crop-select" class="form-control" style="width:190px;font-weight:700" onchange="renderAdminPriceTable(this.value)">
+                <option value="rice">🌾 Rice</option>
+                <option value="wheat">🌾 Wheat</option>
+                <option value="tomato">🍅 Tomato</option>
+                <option value="onion">🧅 Onion</option>
+                <option value="cotton">☁️ Cotton</option>
+                <option value="groundnut">🥜 Groundnut</option>
+                <option value="maize">🌽 Maize</option>
+                <option value="turmeric">🧂 Turmeric</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Master Editable Table for Selected Crop -->
+          <div class="tbl-wrap">
+            <table class="price-admin-grid">
+              <thead>
+                <tr>
+                  <th>Agri Market</th>
+                  <th>State</th>
+                  <th>Arrivals (Qtl)</th>
+                  <th>Min Rate (₹)</th>
+                  <th>Max Rate (₹)</th>
+                  <th>Modal Price (₹)</th>
+                  <th>7-Day Spread</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adm-prices-tbody">
+                <!-- Populated via renderAdminPriceTable -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- System Metrics & Telemetry -->
+        <div class="card" style="max-width:100%;margin:0 auto">
+          <div class="card-title" id="admin-main-title" style="margin-bottom:8px">🛡️ System Administration Console</div>
+          <p class="sub-meta" id="admin-main-sub" style="margin-bottom:20px">Module supervision, APMC mandi node health, API feed connectivity, and user audit logs.</p>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+            <div style="background:#f8fafc;padding:16px;border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;font-weight:700;color:var(--text-subtle)" id="lbl-sys-status">SYSTEM STATUS</div>
+              <div style="font-size:18px;font-weight:800;color:var(--accent-green);margin-top:4px">ONLINE (100%)</div>
+              <div style="font-size:11px;color:var(--text-subtle);margin-top:2px">All 6 Mandi feeds connected</div>
+            </div>
+            <div style="background:#f8fafc;padding:16px;border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;font-weight:700;color:var(--text-subtle)" id="lbl-act-farmers">ACTIVE FARMERS</div>
+              <div style="font-size:18px;font-weight:800;color:var(--brand-green);margin-top:4px">14,280 Verified</div>
+              <div style="font-size:11px;color:var(--text-subtle);margin-top:2px">Across 4 southern states</div>
+            </div>
+            <div style="background:#f8fafc;padding:16px;border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;font-weight:700;color:var(--text-subtle)" id="lbl-weather-radar">WEATHER RADAR</div>
+              <div style="font-size:18px;font-weight:800;color:#0284c7;margin-top:4px">IMD API ACTIVE</div>
+              <div style="font-size:11px;color:var(--text-subtle);margin-top:2px">Updated 10 mins ago</div>
+            </div>
+          </div>
+
+          <div style="font-size:13.5px;font-weight:700;margin-bottom:10px" id="lbl-activity-stream">Recent System Activity Stream:</div>
+          <div id="admin-activity-list" style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--text-muted)">
+            <div style="padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid var(--border)">
+              ✅ <strong>Guntur Mandi Node:</strong> Synced 610 Qtl arrivals for Rice (Modal rate ₹2,825/Qtl).
+            </div>
+            <div style="padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid var(--border)">
+              ✅ <strong>Weather Station:</strong> Coimbatore Agri Research Zone telemetry updated (31°C, 78% RH).
+            </div>
+            <div style="padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid var(--border)">
+              ✅ <strong>Advisory Engine:</strong> Updated Stem Borer spray guidelines for Samba paddy crop.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast-notify" id="toast-notify">
+    <span id="toast-icon">✅</span>
+    <span id="toast-text">Success message</span>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════════════════
+    // TRANSLATIONS DICTIONARY (Telugu, Tamil, Hindi, English)
+    // ═══════════════════════════════════════════════════════════════════════════
+    const UI_TEXT = {
+      en: {
+        brandSub: "Agriculture Market Price & Farmer Advisory Services • CSA4309 / ITA0334",
+        syncLive: "Agri Market Sync: Live",
+        userBadgeGuest: "Farmer: Guest",
+        userBadgeAdmin: "🛡️ Admin: P. Pawan Teja",
+        roleChipGuest: "Admin Login",
+        roleChipAdmin: "Admin Active",
+        navPrices: "🏷️ Agri Market Prices",
+        navTrends: "📈 Price Trends",
+        navAdvisory: "🌱 Farmer Advisory",
+        navCalculator: "🧮 Fertilizer Calculator",
+        navFarm: "🚜 My Farm Profile",
+        navTrader: "🏪 Trader Entry",
+        navAdmin: "🛡️ Admin Console",
+        welcomeTitle: "Welcome to AgriPrice Intelligence Platform",
+        welcomeSub: "Empowering farmers with transparent inter-market price discovery, automated modal analytics, and localized weather-based agronomy advice.",
+        statMarkets: "Agri Markets Monitored",
+        statCrops: "Crops Tracked",
+        statSpread: "Max Market Spread",
+        comparisonSuffix: "– Inter-Market Daily Price Comparison",
+        bestMarketPrefix: "Best Agri Market:",
+        sampleMeta: "Live Sample Date: Oct 31, 2026 • Updated hourly",
+        thMarket: "AGRI MARKET",
+        thState: "STATE",
+        thArrivals: "ARRIVALS (QTL)",
+        thMin: "MIN (₹)",
+        thMax: "MAX (₹)",
+        thModal: "MODAL PRICE",
+        thSpread: "7-DAY SPREAD",
+        thAction: "ACTION",
+        highestBadge: "Highest Rate",
+        viewTrendBtn: "View Trend",
+        weatherTitle: "Partly Cloudy & Humid",
+        weatherStation: "Station: Coimbatore Agri Research Zone",
+        weatherHum: "💧 Humidity: 78%",
+        weatherRain: "🌧️ Rain Prob: 20%",
+        weatherWind: "💨 Wind: 12 km/h",
+        advCardTitle: "💡 Today's Selling & Farm Advisory",
+        favorableMarket: "Favorable Market",
+        guideLink: "View Detailed Cultivation, Pest & Fertilizer Guide →",
+        trendTitle: "30–Day Modal Price Trend & Historical Analysis",
+        selectMarketLbl: "Select Agri Market:",
+        mcToday: "Today's Modal Price",
+        mcAvg: "30–Day Average",
+        mcPeak: "30–Day Peak High",
+        mcTrough: "30–Day Trough Low",
+        chDays30: "30 Days Ago",
+        chDays15: "15 Days Ago",
+        chToday: "Today",
+        advTitle: "🌱 Agronomic Guidance & Diagnostic Services",
+        advSub: "Scientific recommendations compiled from ICAR / TNAU agricultural research datasets",
+        weatherSimLbl: "Simulate Weather:",
+        calcTitle: "🧮 Scientific Fertilizer & NPK Calculator",
+        calcSub: "Compute customized Urea, DAP, and Potash (MOP) quantities based on crop requirement and farm acreage.",
+        lblCrop: "Select Target Crop",
+        lblAcres: "Farm Area (in Acres)",
+        btnCalc: "Calculate Required Fertilizers",
+        resDoses: "Recommended Doses for",
+        lblDap: "DAP (Basal)",
+        lblMop: "MOP (Potash)",
+        lblUrea: "Urea (Split)",
+        farmTitle: "🚜 Registered Farmer & Holding Profile",
+        farmSub: "Manage your agricultural plot records, active crops, and alert subscriptions.",
+        lblFpName: "Farmer Name",
+        lblFpMobile: "Contact Mobile",
+        lblFpLoc: "Farm Location / District",
+        lblFpArea: "Total Land Holding",
+        btnFpUpdate: "Update Profile Details",
+        traderTitle: "🏪 APMC Mandi Trader & Arrival Entry",
+        traderSub: "Submit today's market arrivals, minimum rate, maximum auction bid, and modal rate for instantaneous farmer synchronization.",
+        lblCommodity: "Commodity",
+        lblAgriMarket: "Agri Market (Mandi)",
+        lblArrivals: "Arrivals (Qtl)",
+        lblMin: "Min (₹)",
+        lblMax: "Max (₹)",
+        lblModal: "Modal (₹)",
+        btnTraderSubmit: "Post Market Rates to Portal",
+        adminTitle: "🛡️ System Administration Console",
+        adminSub: "Module supervision, APMC mandi node health, API feed connectivity, and user audit logs.",
+        lblSysStatus: "SYSTEM STATUS",
+        lblActFarmers: "ACTIVE FARMERS",
+        lblWeatherRadar: "WEATHER RADAR",
+        activityStream: "Recent System Activity Stream:"
+      },
+      te: {
+        brandSub: "వ్యవసాయ మార్కెట్ ధరలు & రైతు సలహా సేవలు • CSA4309 / ITA0334",
+        syncLive: "మార్కెట్ సమన్వయం: ప్రత్యక్షం (Live)",
+        userBadgeGuest: "రైతు: పి. పవన్ తేజ (అతిథి)",
+        userBadgeAdmin: "🛡️ అడ్మిన్: పి. పవన్ తేజ",
+        roleChipGuest: "అడ్మిన్ లాగిన్",
+        roleChipAdmin: "అడ్మిన్ యాక్టివ్",
+        navPrices: "🏷️ వ్యవసాయ మార్కెట్ ధరలు",
+        navTrends: "📈 ధరల ధోరణులు",
+        navAdvisory: "🌱 రైతు సలహా సేవలు",
+        navCalculator: "🧮 ఎరువుల కాలిక్యులేటర్",
+        navFarm: "🚜 నా వ్యవసాయ ప్రొఫైల్",
+        navTrader: "🏪 వ్యాపారి నమోదు",
+        navAdmin: "🛡️ అడ్మిన్ కన్సోల్",
+        welcomeTitle: "అగ్రిప్రైస్ ఇంటెలిజెన్స్ ప్లాట్‌ఫామ్‌కు స్వాగతం",
+        welcomeSub: "పారదర్శక అంతర్-మార్కెట్ ధరల విశ్లేషణ, ఆటోమేటెడ్ మోడల్ పోలిక మరియు స్థానిక వాతావరణ ఆధారిత వ్యవసాయ సలహాలతో రైతులకు సాధికారత.",
+        statMarkets: "పర్యవేక్షిస్తున్న మార్కెట్లు",
+        statCrops: "ట్రాక్ చేయబడిన పంటలు",
+        statSpread: "గరిష్ట మార్కెట్ వ్యత్యాసం",
+        comparisonSuffix: "– అంతర్-మార్కెట్ రోజువారీ ధరల పోలిక",
+        bestMarketPrefix: "ఉత్తమ మార్కెట్ రేటు:",
+        sampleMeta: "లైవ్ నమూనా తేదీ: అక్టోబర్ 31, 2026 • ప్రతి గంటకు తాజాకరణ",
+        thMarket: "వ్యవసాయ మార్కెట్ (మండి)",
+        thState: "రాష్ట్రం",
+        thArrivals: "రాబడులు (క్వింటాళ్ళు)",
+        thMin: "కనిష్ట (₹)",
+        thMax: "గరిష్ట (₹)",
+        thModal: "మోడల్ ధర (₹)",
+        thSpread: "7 రోజుల మార్పు",
+        thAction: "చర్య",
+        highestBadge: "అత్యధిక రేటు",
+        viewTrendBtn: "ట్రెండ్ చూడండి",
+        weatherTitle: "పాక్షికంగా మేఘావృతం & తేమ",
+        weatherStation: "కేంద్రం: కోయంబత్తూరు వ్యవసాయ పరిశోధనా కేంద్రం",
+        weatherHum: "💧 తేమ: 78%",
+        weatherRain: "🌧️ వర్షం సంభావ్యత: 20%",
+        weatherWind: "💨 గాలి వేగం: 12 కి.మీ/గం",
+        advCardTitle: "💡 నేటి విక్రయ & వ్యవసాయ సలహా",
+        favorableMarket: "అనుకూల మార్కెట్",
+        guideLink: "సమగ్ర సాగు, తెగుళ్లు & ఎరువుల గైడ్ చూడండి →",
+        trendTitle: "30 రోజుల మోడల్ ధరల ధోరణి & చారిత్రక విశ్లేషణ",
+        selectMarketLbl: "మార్కెట్ ఎంచుకోండి:",
+        mcToday: "నేటి మోడల్ ధర",
+        mcAvg: "30 రోజుల సగటు",
+        mcPeak: "30 రోజుల గరిష్ట ధర",
+        mcTrough: "30 రోజుల కనిష్ట ధర",
+        chDays30: "30 రోజుల క్రితం",
+        chDays15: "15 రోజుల క్రితం",
+        chToday: "ఈరోజు",
+        advTitle: "🌱 వ్యవసాయ శాస్త్ర మార్గదర్శకత్వం & రోగనిర్ధారణ సేవలు",
+        advSub: "ICAR / TNAU వ్యవసాయ పరిశోధనా డేటాసెట్ల నుండి శాస్త్రీయ సిఫార్సులు",
+        weatherSimLbl: "వాతావరణ అనుకరణ:",
+        calcTitle: "🧮 శాస్త్రీయ ఎరువులు & NPK కాలిక్యులేటర్",
+        calcSub: "పంట అవసరం మరియు పొలం విస్తీర్ణం ఆధారంగా యూరియా, డీఏపీ, పొటాష్ (MOP) పరిమాణాలను లెక్కించండి.",
+        lblCrop: "లక్ష్య పంటను ఎంచుకోండి",
+        lblAcres: "వ్యవసాయ విస్తీర్ణం (ఎకరాలలో)",
+        btnCalc: "అవసరమైన ఎరువులను లెక్కించండి",
+        resDoses: "సిఫార్సు చేయబడిన ఎరువులు -",
+        lblDap: "డీఏపీ (DAP)",
+        lblMop: "పొటాష్ (MOP)",
+        lblUrea: "యూరియా (Urea)",
+        farmTitle: "🚜 నమోదిత రైతు & భూమి ప్రొఫైల్",
+        farmSub: "మీ వ్యవసాయ భూమి వివరాలు, ప్రస్తుత పంటలు మరియు హెచ్చరికలను నిర్వహించండి.",
+        lblFpName: "రైతు పేరు",
+        lblFpMobile: "మొబైల్ నంబర్",
+        lblFpLoc: "పొలం ప్రదేశం / జిల్లా",
+        lblFpArea: "మొత్తం భూమి విస్తీర్ణం",
+        btnFpUpdate: "ప్రొఫైల్ వివరాలను నవీకరించండి",
+        traderTitle: "🏪 ఏపీఎంసీ మండి వ్యాపారి & రాబడుల నమోదు",
+        traderSub: "రైతులకు తక్షణ ధరల సమాచారం అందించడానికి నేటి రాబడులు, కనిష్ట, గరిష్ట మరియు మోడల్ ధరలను నమోదు చేయండి.",
+        lblCommodity: "పంట రకం",
+        lblAgriMarket: "వ్యవసాయ మార్కెట్ (మండి)",
+        lblArrivals: "రాబడులు (క్వింటాళ్ళు)",
+        lblMin: "కనిష్ట ధర (₹)",
+        lblMax: "గరిష్ట ధర (₹)",
+        lblModal: "మోడల్ ధర (₹)",
+        btnTraderSubmit: "మార్కెట్ ధరలను పోర్టల్‌లో నమోదు చేయండి",
+        adminTitle: "🛡️ సిస్టమ్ అడ్మినిస్ట్రేషన్ కన్సోల్",
+        adminSub: "సిస్టమ్ పర్యవేక్షణ, మార్కెట్ నోడ్స్ కనెక్టివిటీ, API ఫీడ్‌లు మరియు వినియోగదారు ఆడిట్ లాగ్‌లు.",
+        lblSysStatus: "సిస్టమ్ స్థితి",
+        lblActFarmers: "క్రియాశీల రైతులు",
+        lblWeatherRadar: "వాతావరణ రాడార్",
+        activityStream: "ఇటీవలి సిస్టమ్ కార్యాచరణ:"
+      },
+      ta: {
+        brandSub: "வேளாண் சந்தை விலைகள் & விவசாய ஆலோசனைகள் • CSA4309 / ITA0334",
+        syncLive: "சந்தை இணைப்பு: நேரலை (Live)",
+        userBadgeGuest: "விவசாயி: பவன் தேஜா (விருந்தினர்)",
+        userBadgeAdmin: "🛡️ நிர்வாகி: பவன் தேஜா",
+        roleChipGuest: "நிர்வாகி உள்நுழைவு",
+        roleChipAdmin: "நிர்வாகி செயலில்",
+        navPrices: "🏷️ வேளாண் சந்தை விலைகள்",
+        navTrends: "📈 விலை போக்குகள்",
+        navAdvisory: "🌱 விவசாய ஆலோசனைகள்",
+        navCalculator: "🧮 உர கால்குலேட்டர்",
+        navFarm: "🚜 என் பண்ணை சுயவிவரம்",
+        navTrader: "🏪 வியாபாரி பதிவு",
+        navAdmin: "🛡️ நிர்வாக பணியகம்",
+        welcomeTitle: "அக்ரிபிரைஸ் நுண்ணறிவு தளத்திற்கு வரவேற்கிறோம்",
+        welcomeSub: "வெளிப்படையான சந்தை விலை ஒப்பீடு, தானியங்கி மாதிரி பகுப்பாய்வு மற்றும் வானிலை அடிப்படையிலான வேளாண் ஆலோசனைகள் மூலம் விவசாயிகளுக்கு வழிகாட்டல்.",
+        statMarkets: "கண்காணிக்கப்படும் சந்தைகள்",
+        statCrops: "கண்காணிக்கப்படும் பயிர்கள்",
+        statSpread: "அதிகபட்ச விலை வித்தியாசம்",
+        comparisonSuffix: "– தினசரி சந்தை விலை ஒப்பீடு",
+        bestMarketPrefix: "சிறந்த சந்தை விலை:",
+        sampleMeta: "நேரலை மாதிரி தேதி: அக்டோபர் 31, 2026 • மணிநேர புதுப்பிப்பு",
+        thMarket: "வேளாண் சந்தை (மண்டி)",
+        thState: "மாநிலம்",
+        thArrivals: "வரத்து (குவிண்டால்)",
+        thMin: "குறைந்தபட்சம் (₹)",
+        thMax: "அதிகபட்சம் (₹)",
+        thModal: "மாதிரி விலை (₹)",
+        thSpread: "7 நாள் மாற்றம்",
+        thAction: "செயல்",
+        highestBadge: "உச்ச விலை",
+        viewTrendBtn: "போக்கை காண்க",
+        weatherTitle: "பகுதி மேகமூட்டம் & ஈரப்பதம்",
+        weatherStation: "நிலையம்: கோயம்புத்தூர் வேளாண் ஆராய்ச்சி மையம்",
+        weatherHum: "💧 ஈரப்பதம்: 78%",
+        weatherRain: "🌧️ மழை வாய்ப்பு: 20%",
+        weatherWind: "💨 காற்று: 12 கி.மீ/மணி",
+        advCardTitle: "💡 இன்றைய விற்பனை & விவசாய ஆலோசனை",
+        favorableMarket: "சாதகமான சந்தை",
+        guideLink: "விரிவான சாகுபடி, பூச்சி & உர வழிகாட்டியை காண்க →",
+        trendTitle: "30 நாள் மாதிரி விலை போக்கு & வரலாற்று பகுப்பாய்வு",
+        selectMarketLbl: "சந்தையை தேர்ந்தெடுக்கவும்:",
+        mcToday: "இன்றைய மாதிரி விலை",
+        mcAvg: "30 நாள் சராசரி",
+        mcPeak: "30 நாள் உச்ச விலை",
+        mcTrough: "30 நாள் குறைந்த விலை",
+        chDays30: "30 நாட்களுக்கு முன்",
+        chDays15: "15 நாட்களுக்கு முன்",
+        chToday: "இன்று",
+        advTitle: "🌱 வேளாண் வழிகாட்டுதல் & கண்டறிதல் சேவைகள்",
+        advSub: "ICAR / TNAU வேளாண் ஆராய்ச்சி தரவுகளின் அறிவியல் பரிந்துரைகள்",
+        weatherSimLbl: "வானிலை உருவகப்படுத்துதல்:",
+        calcTitle: "🧮 அறிவியல் உர & NPK கால்குலேட்டர்",
+        calcSub: "பயிர் தேவை மற்றும் நில பரப்பளவின் அடிப்படையில் யூரியா, டிஏபி மற்றும் பொட்டாஷ் (MOP) அளவைக் கணக்கிடுங்கள்.",
+        lblCrop: "பயிரைத் தேர்ந்தெடுக்கவும்",
+        lblAcres: "பண்ணை பரப்பளவு (ஏக்கரில்)",
+        btnCalc: "தேவையான உரங்களைக் கணக்கிடுங்கள்",
+        resDoses: "பரிந்துரைக்கப்பட்ட உர அளவுகள் -",
+        lblDap: "டிஏபி (DAP)",
+        lblMop: "பொட்டாஷ் (MOP)",
+        lblUrea: "யூரியா (Urea)",
+        farmTitle: "🚜 பதிவு செய்யப்பட்ட விவசாயி & பண்ணை விவரம்",
+        farmSub: "உங்கள் விவசாய நில பதிவுகள், தற்போதைய பயிர்கள் மற்றும் அறிவிப்புகளை நிர்வகிக்கவும்.",
+        lblFpName: "விவசாயி பெயர்",
+        lblFpMobile: "கைபேசி எண்",
+        lblFpLoc: "பண்ணை இருப்பிடம் / மாவட்டம்",
+        lblFpArea: "மொத்த நில பரப்பளவு",
+        btnFpUpdate: "சுயவிவர விவரங்களை புதுப்பிக்கவும்",
+        traderTitle: "🏪 ஒழுங்குமுறை விற்பனைக்கூட வரத்து பதிவு",
+        traderSub: "விவசாயிகளுக்கு உடனுக்குடன் தகவல் கிடைக்க இன்றைய வரத்து, குறைந்தபட்ச, அதிகபட்ச மற்றும் மாதிரி விலைகளை பதிவிடவும்.",
+        lblCommodity: "விளைபொருள்",
+        lblAgriMarket: "வேளாண் சந்தை",
+        lblArrivals: "வரத்து (குவிண்டால்)",
+        lblMin: "குறைந்தபட்சம் (₹)",
+        lblMax: "அதிகபட்சம் (₹)",
+        lblModal: "மாதிரி விலை (₹)",
+        btnTraderSubmit: "சந்தை விலைகளை போர்ட்டலில் பதிவிடவும்",
+        adminTitle: "🛡️ அமைப்பு நிர்வாக பணியகம்",
+        adminSub: "கணினி மேற்பார்வை, ஒழுங்குமுறை விற்பனைக்கூட முனையங்கள், API இணைப்புகள் மற்றும் தணிக்கை பதிவுகள்.",
+        lblSysStatus: "கணினி நிலை",
+        lblActFarmers: "செயலில் உள்ள விவசாயிகள்",
+        lblWeatherRadar: "வானிலை ரேடார்",
+        activityStream: "சமீபத்திய கணினி செயல்பாடுகள்:"
+      },
+      hi: {
+        brandSub: "कृषि मंडी भाव एवं किसान परामर्श सेवाएं • CSA4309 / ITA0334",
+        syncLive: "मंडी सिंक: लाइव (Live)",
+        userBadgeGuest: "किसान: पी. पवन तेजा (अतिथि)",
+        userBadgeAdmin: "🛡️ एडमिन: पी. पवन तेजा",
+        roleChipGuest: "एडमिन लॉगिन",
+        roleChipAdmin: "एडमिन सक्रिय",
+        navPrices: "🏷️ कृषि मंडी भाव",
+        navTrends: "📈 मूल्य रुझान",
+        navAdvisory: "🌱 किसान सलाह सेवाएं",
+        navCalculator: "🧮 उर्वरक कैलकुलेटर",
+        navFarm: "🚜 मेरी कृषि प्रोफ़ाइल",
+        navTrader: "🏪 व्यापारी प्रविष्टि",
+        navAdmin: "🛡️ एडमिन कंसोल",
+        welcomeTitle: "एग्रीप्राइस इंटेलिजेंस प्लेटफॉर्म में आपका स्वागत है",
+        welcomeSub: "पारदर्शी अंतर-मंडी मूल्य खोज, स्वचालित विश्लेषिकी और मौसम आधारित कृषि सलाह के साथ किसानों का सशक्तिकरण।",
+        statMarkets: "निगरानी की जा रही मंडियां",
+        statCrops: "ट्रैक की गई फसलें",
+        statSpread: "अधिकतम मंडी मूल्य अंतर",
+        comparisonSuffix: "– दैनिक अंतर-मंडी मूल्य तुलना",
+        bestMarketPrefix: "सर्वश्रेष्ठ मंडी भाव:",
+        sampleMeta: "लाइव नमूना दिनांक: 31 अक्टूबर 2026 • प्रति घंटे अपडेट",
+        thMarket: "कृषि मंडी",
+        thState: "राज्य",
+        thArrivals: "आवक (क्विंटल)",
+        thMin: "न्यूनतम (₹)",
+        thMax: "अधिकतम (₹)",
+        thModal: "मॉडल भाव (₹)",
+        thSpread: "7 दिवसीय बदलाव",
+        thAction: "कार्रवाई",
+        highestBadge: "उच्चतम दर",
+        viewTrendBtn: "रुझान देखें",
+        weatherTitle: "आंशिक रूप से बादल व आर्द्र",
+        weatherStation: "केंद्र: कोयम्बटूर कृषि अनुसंधान केंद्र",
+        weatherHum: "💧 आर्द्रता: 78%",
+        weatherRain: "🌧️ वर्षा संभावना: 20%",
+        weatherWind: "💨 हवा: 12 किमी/घंटा",
+        advCardTitle: "💡 आज की बिक्री व कृषि सलाह",
+        favorableMarket: "अनुकूल मंडी",
+        guideLink: "विस्तृत खेती, कीट व उर्वरक गाइड देखें →",
+        trendTitle: "30-दिवसीय मॉडल भाव रुझान व ऐतिहासिक विश्लेषण",
+        selectMarketLbl: "कृषि मंडी चुनें:",
+        mcToday: "आज का मॉडल भाव",
+        mcAvg: "30 दिवसीय औसत",
+        mcPeak: "30 दिवसीय उच्चतम स्तर",
+        mcTrough: "30 दिवसीय न्यूनतम स्तर",
+        chDays30: "30 दिन पहले",
+        chDays15: "15 दिन पहले",
+        chToday: "आज",
+        advTitle: "🌱 कृषि मार्गदर्शन एवं नैदानिक सेवाएं",
+        advSub: "ICAR / TNAU कृषि अनुसंधान से संकलित वैज्ञानिक सिफारिशें",
+        weatherSimLbl: "मौसम अनुकरण:",
+        calcTitle: "🧮 वैज्ञानिक उर्वरक व NPK कैलकुलेटर",
+        calcSub: "फसल आवश्यकता और खेत के रकबे के आधार पर यूरिया, डीएपी और पोटाश (MOP) की सही मात्रा की गणना करें।",
+        lblCrop: "लक्षित फसल चुनें",
+        lblAcres: "खेत का क्षेत्रफल (एकड़ में)",
+        btnCalc: "आवश्यक उर्वरकों की गणना करें",
+        resDoses: "अनुशंसित उर्वरक खुराक -",
+        lblDap: "डीएपी (DAP)",
+        lblMop: "पोटाश (MOP)",
+        lblUrea: "यूरिया (Urea)",
+        farmTitle: "🚜 पंजीकृत किसान व जोत प्रोफ़ाइल",
+        farmSub: "अपने कृषि भूमि अभिलेख, सक्रिय फसलें और अलर्ट प्रबंधित करें।",
+        lblFpName: "किसान का नाम",
+        lblFpMobile: "मोबाइल नंबर",
+        lblFpLoc: "खेत का स्थान / जिला",
+        lblFpArea: "कुल भूमि जोत",
+        btnFpUpdate: "प्रोफ़ाइल विवरण अपडेट करें",
+        traderTitle: "🏪 एपीएमसी मंडी व्यापारी व आवक प्रविष्टि",
+        traderSub: "किसानों को तत्काल भाव सिंक करने हेतु आज की आवक, न्यूनतम, अधिकतम व मॉडल भाव दर्ज करें।",
+        lblCommodity: "कृषि उत्पाद",
+        lblAgriMarket: "कृषि मंडी",
+        lblArrivals: "आवक (क्विंटल)",
+        lblMin: "न्यूनतम भाव (₹)",
+        lblMax: "अधिकतम भाव (₹)",
+        lblModal: "मॉडल भाव (₹)",
+        btnTraderSubmit: "मंडी भाव पोर्टल पर पोस्ट करें",
+        adminTitle: "🛡️ सिस्टम प्रशासन कंसोल",
+        adminSub: "सिस्टम पर्यवेक्षण, एपीएमसी मंडी नोड्स, एपीआई कनेक्टिविटी और यूजर ऑडिट लॉग।",
+        lblSysStatus: "सिस्टम स्थिति",
+        lblActFarmers: "सक्रिय किसान",
+        lblWeatherRadar: "मौसम रडार",
+        activityStream: "हालिया सिस्टम गतिविधि:"
+      }
+    };
+
+    const CROP_CHIP_NAMES = {
+      rice: { en: "🌾 Rice", te: "🌾 వరి", ta: "🌾 நெல்", hi: "🌾 धान" },
+      wheat: { en: "🌾 Wheat", te: "🌾 గోధుమలు", ta: "🌾 கோதுமை", hi: "🌾 गेहूं" },
+      tomato: { en: "🍅 Tomato", te: "🍅 టమోటా", ta: "🍅 தக்காளி", hi: "🍅 टमाटर" },
+      onion: { en: "🧅 Onion", te: "🧅 ఉల్లిపాయ", ta: "🧅 வெங்காயம்", hi: "🧅 प्याज" },
+      cotton: { en: "☁️ Cotton", te: "☁️ పత్తి", ta: "☁️ பருத்தி", hi: "☁️ कपास" },
+      groundnut: { en: "🥜 Groundnut", te: "🥜 వేరుశనగ", ta: "🥜 நிலக்கடலை", hi: "🥜 मूंगफली" },
+      maize: { en: "🌽 Maize", te: "🌽 మొక్కజొన్న", ta: "🌽 மக்காச்சோளம்", hi: "🌽 मक्का" },
+      turmeric: { en: "🧂 Turmeric", te: "🧂 పసుపు", ta: "🧂 மஞ்சள்", hi: "🧂 हल्दी" }
+    };
+
+    const MARKET_TRANSLATIONS = {
+      Guntur: { en: "Guntur", te: "గుంటూరు", ta: "குண்டூர்", hi: "गुंटूर" },
+      Chennai: { en: "Chennai", te: "చెన్నై", ta: "சென்னை", hi: "चेन्नई" },
+      Hyderabad: { en: "Hyderabad", te: "హైదరాబాద్", ta: "ஹைதராபாத்", hi: "हैदराबाद" },
+      Coimbatore: { en: "Coimbatore", te: "కోయంబత్తూరు", ta: "கோயம்புத்தூர்", hi: "कोयम्बटूर" },
+      Salem: { en: "Salem", te: "సేలం", ta: "சேலம்", hi: "सलेम" }
+    };
+
+    const STATE_TRANSLATIONS = {
+      "Andhra Pradesh": { en: "Andhra Pradesh", te: "ఆంధ్రప్రదేశ్", ta: "ஆந்திர பிரதேசம்", hi: "आंध्र प्रदेश" },
+      "Tamil Nadu": { en: "Tamil Nadu", te: "తమిళనాడు", ta: "தமிழ்நாடு", hi: "तमिलनाडु" },
+      "Telangana": { en: "Telangana", te: "తెలంగాణ", ta: "தெலுங்கானா", hi: "तेलंगाना" }
+    };
+
+    const WEATHER_OPTIONS = {
+      en: ["⛅ Cloudy & High Humidity", "☀️ Dry & High Temperature", "🌧️ Heavy Rainfall Expected"],
+      te: ["⛅ మేఘావృతం & అధిక తేమ", "☀️ పొడి వాతావరణం & అధిక ఉష్ణోగ్రత", "🌧️ భారీ వర్ష సూచన"],
+      ta: ["⛅ மேகமூட்டம் & அதிக ஈரப்பதம்", "☀️ வறண்ட நிலை & அதிக வெப்பநிலை", "🌧️ கனமழை எதிர்பார்ப்பு"],
+      hi: ["⛅ बादल व अत्यधिक आर्द्रता", "☀️ शुष्क मौसम व उच्च तापमान", "🌧️ भारी वर्षा की संभावना"]
+    };
+
+    const TREND_MARKET_OPTIONS = {
+      Coimbatore: { en: "Coimbatore (Tamil Nadu)", te: "కోయంబత్తూరు (తమిళనాడు)", ta: "கோயம்புத்தூர் (தமிழ்நாடு)", hi: "कोयम्बटूर (तमिलनाडु)" },
+      Guntur: { en: "Guntur (Andhra Pradesh)", te: "గుంటూరు (ఆంధ్రప్రదేశ్)", ta: "குண்டூர் (ஆந்திர பிரதேசம்)", hi: "गुंटूर (आंध्र प्रदेश)" },
+      Chennai: { en: "Chennai (Tamil Nadu)", te: "చెన్నై (తమిళనాడు)", ta: "சென்னை (தமிழ்நாடு)", hi: "चेन्नई (तमिलनाडु)" },
+      Hyderabad: { en: "Hyderabad (Telangana)", te: "హైదరాబాద్ (తెలంగాణ)", ta: "ஹைதராபாத் (தெலுங்கானா)", hi: "हैदराबाद (तेलंगाना)" },
+      Salem: { en: "Salem (Tamil Nadu)", te: "సేలం (తమిళనాడు)", ta: "சேலம் (தமிழ்நாடு)", hi: "सलेम (तमिलनाडु)" }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // MULTILINGUAL CROP ADVISORY & REPOSITORY
+    // ═══════════════════════════════════════════════════════════════════════════
+    const CROP_TRANSLATIONS = {
+      te: {
+        rice: {
+          name: "వరి (Rice)",
+          bestMarket: "గుంటూరు (₹2,825/క్విం)",
+          callout: "<strong>గుంటూరు మార్కెట్</strong> లో విక్రయించడం ద్వారా మధురై కంటే <strong>క్వింటాలుకు ₹600 ఎక్కువ</strong> లభిస్తుంది.",
+          tip: "<strong>విక్రయ సలహా:</strong> నేటి మోడల్ రేటు ₹2,825 గత 30 రోజుల గరిష్ట శ్రేణిలో ఉంది. ఆంధ్రప్రదేశ్ పరిసర ప్రాంతాల రైతులు పంటను విక్రయించడం మంచిది."
+        },
+        wheat: {
+          name: "గోధుమలు (Wheat)",
+          bestMarket: "హైదరాబాద్ (₹2,640/క్విం)",
+          callout: "<strong>హైదరాబాద్ మండి</strong> లో విక్రయించడం ద్వారా సేలం కంటే <strong>క్వింటాలుకు ₹320 ఎక్కువ</strong> లభిస్తుంది.",
+          tip: "<strong>విక్రయ సలహా:</strong> పిండి మిల్లుల నుండి స్థిరమైన డిమాండ్ ఉంది. 10 రోజులు నిల్వ ఉంచితే +₹80/క్విం పెరిగే అవకాశం ఉంది."
+        },
+        tomato: {
+          name: "టమోటా (Tomato)",
+          bestMarket: "కోయంబత్తూరు (₹3,200/క్విం)",
+          callout: "స్థానిక రాబడులు తగ్గడం వల్ల <strong>కోయంబత్తూరు మార్కెట్</strong> లో టమోటా ధరలు <strong>+18%</strong> పెరిగాయి.",
+          tip: "<strong>విక్రయ సలహా:</strong> ధరలలో ఒడిదుడుకులు ఎక్కువ. మదనపల్లె నుండి కొత్త రాబడులు రాకముందే నిల్వలను విక్రయించడం ఉత్తమం."
+        },
+        onion: {
+          name: "ఉల్లిపాయ (Onion)",
+          bestMarket: "చెన్నై (₹3,450/క్విం)",
+          callout: "<strong>చెన్నై మార్కెట్</strong> లో బళ్లారి ఉల్లిపాయల ధర గుంటూరు కంటే <strong>క్వింటాలుకు ₹450 ఎక్కువ</strong> గా ఉంది.",
+          tip: "<strong>విక్రయ సలహా:</strong> పరిమాణం ఆధారంగా ఉల్లిపాయలను గ్రేడింగ్ చేయండి (>45 మి.మీ ఉన్న వాటికి ఎగుమతుల్లో అధిక ధర లభిస్తుంది)."
+        },
+        cotton: {
+          name: "పత్తి (Cotton)",
+          bestMarket: "గుంటూరు (₹7,450/క్విం)",
+          callout: "<strong>గుంటూరు</strong> లో మీడియం స్టేపుల్ పత్తి <strong>₹7,450/క్విం</strong> తో సీసీఐ కనీస ధర కంటే ఎక్కువగా పలుకుతోంది.",
+          tip: "<strong>విక్రయ సలహా:</strong> సీసీఐ కేంద్రాలలో అత్యధిక ధర పొందడానికి పత్తిలో తేమ 8% కంటే తక్కువగా ఉండేలా చూడండి."
+        },
+        groundnut: {
+          name: "వేరుశనగ (Groundnut)",
+          bestMarket: "సేలం (₹6,850/క్విం)",
+          callout: "<strong>సేలం అగ్రి మార్కెట్</strong> లో నాణ్యమైన వేరుశనగ కాయలు <strong>₹6,850/క్విం</strong> గరిష్ట ధర పలుకుతున్నాయి.",
+          tip: "<strong>విక్రయ సలహా:</strong> 20 క్వింటాళ్లకు పైగా ఉన్న లాట్లకు ఆయిల్ మిల్లులు పొలం వద్దకే వచ్చి కొనుగోలు చేస్తున్నాయి."
+        },
+        maize: {
+          name: "మొక్కజొన్న (Maize)",
+          bestMarket: "హైదరాబాద్ (₹2,280/క్విం)",
+          callout: "పౌల్ట్రీ ఫారాల భారీ ఆర్డర్ల వల్ల <strong>హైదరాబాద్</strong> లో ఫీడ్-గ్రేడ్ మొక్కజొన్న ధర పెరుగుతోంది.",
+          tip: "<strong>విక్రయ సలహా:</strong> తేమ శాతం 14% కంటే తక్కువగా ఉంటే ఆఫ్‌లాటాక్సిన్ తగ్గింపు రుసుములు వర్తించవు."
+        },
+        turmeric: {
+          name: "పసుపు (Turmeric)",
+          bestMarket: "సేలం (₹14,200/క్విం)",
+          callout: "<strong>సేలం అగ్రి మండి</strong> లో నాణ్యమైన కొమ్ము పసుపు <strong>₹14,200/క్విం</strong> రికార్డు ధరను తాకింది.",
+          tip: "<strong>విక్రయ సలహా:</strong> అధిక కుర్కుమిన్ (>3.5%) ఉన్న నమూనాలకు ఫార్మా కంపెనీలు క్వింటాలుకు ₹1,200 అదనపు ప్రీమియం ఇస్తున్నాయి."
+        }
+      },
+      ta: {
+        rice: { name: "நெல் (Rice)", bestMarket: "குண்டூர் (₹2,825/குவிண்டால்)" },
+        wheat: { name: "கோதுமை (Wheat)", bestMarket: "ஹைதராபாத் (₹2,640/குவிண்டால்)" },
+        tomato: { name: "தக்காளி (Tomato)", bestMarket: "கோயம்புத்தூர் (₹3,200/குவிண்டால்)" },
+        onion: { name: "வெங்காயம் (Onion)", bestMarket: "சென்னை (₹3,450/குவிண்டால்)" },
+        cotton: { name: "பருத்தி (Cotton)", bestMarket: "குண்டூர் (₹7,450/குவிண்டால்)" },
+        groundnut: { name: "நிலக்கடலை (Groundnut)", bestMarket: "சேலம் (₹6,850/குவிண்டால்)" },
+        maize: { name: "மக்காச்சோளம் (Maize)", bestMarket: "ஹைதராபாத் (₹2,280/குவிண்டால்)" },
+        turmeric: { name: "மஞ்சள் (Turmeric)", bestMarket: "சேலம் (₹14,200/குவிண்டால்)" }
+      },
+      hi: {
+        rice: { name: "धान / चावल (Rice)", bestMarket: "गुंटूर (₹2,825/क्विंटल)" },
+        wheat: { name: "गेहूं (Wheat)", bestMarket: "हैदराबाद (₹2,640/क्विंटल)" },
+        tomato: { name: "टमाटर (Tomato)", bestMarket: "कोयम्बटूर (₹3,200/क्विंटल)" },
+        onion: { name: "प्याज (Onion)", bestMarket: "चेन्नई (₹3,450/क्विंटल)" },
+        cotton: { name: "कपास (Cotton)", bestMarket: "गुंटूर (₹7,450/क्विंटल)" },
+        groundnut: { name: "मूंगफली (Groundnut)", bestMarket: "सलेम (₹6,850/क्विंटल)" },
+        maize: { name: "मक्का (Maize)", bestMarket: "हैदराबाद (₹2,280/क्विंटल)" },
+        turmeric: { name: "हल्दी (Turmeric)", bestMarket: "सलेम (₹14,200/क्विंटल)" }
+      }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CORE DATA REPOSITORY
+    // ═══════════════════════════════════════════════════════════════════════════
+    const CROP_DATA = {
+      rice: {
+        name: "Rice",
+        bestMarket: "Guntur (₹2,825/Qtl)",
+        callout: "Selling in <strong>Guntur Agri Market</strong> yields <strong>₹600 more per quintal</strong> than in Madurai.",
+        tip: "<strong>Selling Tip:</strong> Today's modal rate of ₹2,825 is at the upper tier of the 30-day spectrum. Farmers near Andhra Pradesh are advised to clear mature stocks.",
+        markets: [
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 610, min: 2655, max: 3025, modal: 2825, spread: "+2.7%", highest: true },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 820, min: 2415, max: 2750, modal: 2570, spread: "-4.5%", highest: false },
+          { name: "Hyderabad", state: "Telangana", arrivals: 950, min: 2400, max: 2735, modal: 2555, spread: "+2.8%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 480, min: 2220, max: 2525, modal: 2360, spread: "-5.6%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 290, min: 2180, max: 2480, modal: 2320, spread: "+0.9%", highest: false }
+        ],
+        trend: {
+          today: "₹2,360", avg: "₹2,432", peak: "₹2,520", trough: "₹2,360",
+          peakY: "₹2,520", avgY: "Avg ₹2,432", lowY: "₹2,360",
+          points: "80,180 120,160 160,190 200,170 240,140 280,150 320,180 360,165 400,150 440,185 480,135 520,135 560,70 600,85 640,80 680,95 720,180 760,190 800,170 840,210"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Recommended Window: Samba (Aug–Sep) & Kuruvai (Jun–Jul). Soil: Clayey loam with high water-holding capacity.", tag: "Window: Aug–Sep" },
+          { title: "🧪 Fertilizer Schedule", body: "Basal: 50 kg DAP + 20 kg Potash per acre. Top-dress Urea 45 kg in 3 split doses (active tillering, panicle initiation). Basal NPK: 48:24:24 kg/acre.", tag: "NPK: 48:24:24" },
+          { title: "🐛 Pest & Disease Defense", body: "Stem Borer & Blast Disease. Install 5 pheromone traps/acre; apply Azadirachtin (Neem oil 3%) early; spray Tricyclazole if blast spots appear.", tag: "Bio-Shield Active" },
+          { title: "💧 Irrigation Protocols", body: "Maintain 2–5 cm standing water during tillering and flowering. Drain completely 10–12 days prior to harvesting.", tag: "Critical: Tillering" },
+          { title: "🌾 Harvesting Indicators", body: "Harvest when 80–85% of panicles turn golden yellow and grain moisture drops to 20% (approx 115–130 days).", tag: "Moisture: 20%" },
+          { title: "💡 Direct Agri Market Integration", body: "Synchronized with state agricultural marketing boards. Always check Agri Market modal rates 24 hours prior to field cutting.", tag: "APMC Live" }
+        ]
+      },
+      wheat: {
+        name: "Wheat",
+        bestMarket: "Hyderabad (₹2,640/Qtl)",
+        callout: "Selling in <strong>Hyderabad Mandi</strong> offers <strong>₹320 more per quintal</strong> than in Salem.",
+        tip: "<strong>Selling Tip:</strong> Steady demand from local flour mills. Holding grain for 10 days expected to bring +₹80/q.",
+        markets: [
+          { name: "Hyderabad", state: "Telangana", arrivals: 420, min: 2450, max: 2790, modal: 2640, spread: "+3.1%", highest: true },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 310, min: 2380, max: 2680, modal: 2510, spread: "+1.2%", highest: false },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 280, min: 2350, max: 2620, modal: 2490, spread: "-1.0%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 190, min: 2280, max: 2550, modal: 2410, spread: "+0.5%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 150, min: 2200, max: 2480, modal: 2320, spread: "-2.4%", highest: false }
+        ],
+        trend: {
+          today: "₹2,510", avg: "₹2,530", peak: "₹2,680", trough: "₹2,420",
+          peakY: "₹2,680", avgY: "Avg ₹2,530", lowY: "₹2,420",
+          points: "80,140 160,130 240,110 320,125 400,90 480,85 560,95 640,115 720,130 800,120 840,125"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Recommended Window: Rabi sowing (Nov 1–Nov 25). Optimum temp 20–25°C for germination.", tag: "Window: Nov" },
+          { title: "🧪 Fertilizer Schedule", body: "Basal: 60 kg N, 60 kg P2O5, 40 kg K2O/ha. Top dress remaining 60 kg N at first irrigation (CRI stage).", tag: "NPK: 120:60:40" },
+          { title: "🐛 Pest & Disease Defense", body: "Watch for Yellow Rust and Aphids. Spray Propiconazole 25 EC @ 0.1% on first detection.", tag: "Rust Alert" },
+          { title: "💧 Irrigation Protocols", body: "Critical Crown Root Initiation (CRI) at 21 days is mandatory. Do not miss flowering irrigation.", tag: "CRI Stage" },
+          { title: "🌾 Harvesting Indicators", body: "Harvest when spikes turn dry straw color and grains break crisply with teeth without denting.", tag: "Moisture < 12%" },
+          { title: "💡 Direct Agri Market Integration", body: "FCI procurement centers offering MSP guarantee of ₹2,275/qtl. Verify local APMC yard timing.", tag: "MSP Backed" }
+        ]
+      },
+      tomato: {
+        name: "Tomato",
+        bestMarket: "Coimbatore (₹3,200/Qtl)",
+        callout: "Tomato rates in <strong>Coimbatore Agri Market</strong> jumped <strong>+18%</strong> due to reduced local arrivals.",
+        tip: "<strong>Selling Tip:</strong> High price volatility. Immediate liquidation advised before fresh arrivals from Madanapalle arrive.",
+        markets: [
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 1200, min: 2800, max: 3500, modal: 3200, spread: "+18.2%", highest: true },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 1800, min: 2600, max: 3300, modal: 2950, spread: "+12.0%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 950, min: 2500, max: 3100, modal: 2800, spread: "+9.5%", highest: false },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 1400, min: 2300, max: 2900, modal: 2600, spread: "-3.2%", highest: false },
+          { name: "Hyderabad", state: "Telangana", arrivals: 1600, min: 2200, max: 2800, modal: 2500, spread: "-5.0%", highest: false }
+        ],
+        trend: {
+          today: "₹3,200", avg: "₹2,650", peak: "₹3,500", trough: "₹1,800",
+          peakY: "₹3,500", avgY: "Avg ₹2,650", lowY: "₹1,800",
+          points: "80,210 160,200 240,190 320,160 400,150 480,120 560,90 640,75 720,60 800,50 840,40"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Cultivated round the year. Best nursery window: Aug–Sep for winter harvest.", tag: "All Season" },
+          { title: "🧪 Fertilizer Schedule", body: "Apply 25 tonnes FYM + 100:100:100 kg NPK/ha basal. Top dress 50 kg N at 30 & 45 days.", tag: "NPK: 150:100:100" },
+          { title: "🐛 Pest & Disease Defense", body: "Fruit Borer & Early Blight. Install yellow sticky traps and spray Chlorantraniliprole 18.5 SC.", tag: "Pheromone Trap" },
+          { title: "💧 Irrigation Protocols", body: "Drip irrigation recommended. Avoid overhead sprinkling during flowering to avoid blossom drop.", tag: "Drip Irrigation" },
+          { title: "🌾 Harvesting Indicators", body: "Harvest at breaker stage for distant markets; red ripe stage for local processing.", tag: "Breaker Stage" },
+          { title: "💡 Direct Agri Market Integration", body: "Real-time trader auction links available. Cold storage aggregation available in Oddanchatram.", tag: "Cold Storage" }
+        ]
+      },
+      onion: {
+        name: "Onion",
+        bestMarket: "Chennai (₹3,450/Qtl)",
+        callout: "Bellary onion stocks in <strong>Chennai</strong> trading at a <strong>₹450/q premium</strong> over Guntur.",
+        tip: "<strong>Selling Tip:</strong> Grade onions by diameter (>45mm command top price in export markets).",
+        markets: [
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 1450, min: 3100, max: 3750, modal: 3450, spread: "+6.8%", highest: true },
+          { name: "Hyderabad", state: "Telangana", arrivals: 1600, min: 2900, max: 3500, modal: 3200, spread: "+3.2%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 850, min: 2850, max: 3400, modal: 3150, spread: "+1.5%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 600, min: 2750, max: 3300, modal: 3000, spread: "-0.8%", highest: false },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 900, min: 2700, max: 3250, modal: 2950, spread: "-1.5%", highest: false }
+        ],
+        trend: {
+          today: "₹3,450", avg: "₹3,180", peak: "₹3,600", trough: "₹2,800",
+          peakY: "₹3,600", avgY: "Avg ₹3,180", lowY: "₹2,800",
+          points: "80,180 160,170 240,150 320,130 400,120 480,140 560,110 640,90 720,80 800,65 840,55"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Rabi season: Oct–Nov nursery. Sandy loam soil with good drainage, pH 6.5–7.5.", tag: "Window: Oct–Nov" },
+          { title: "🧪 Fertilizer Schedule", body: "FYM 25 t/ha, NPK 60:60:60 kg/ha basal. Top dress 60 kg N in 2 splits at 30 and 45 days after transplanting.", tag: "NPK: 120:60:60" },
+          { title: "🐛 Pest & Disease Defense", body: "Thrips & Purple Blotch. Spray Fipronil 5 SC @ 1.5 ml/L + Mancozeb @ 2 g/L.", tag: "Thrips Defense" },
+          { title: "💧 Irrigation Protocols", body: "Irrigate every 7–10 days. Stop irrigation 15 days before harvest to prevent bulb rot during storage.", tag: "Curing Phase" },
+          { title: "🌾 Harvesting Indicators", body: "50% neck fall is the optimal harvest index. Cure under shade for 10–12 days.", tag: "50% Neck Fall" },
+          { title: "💡 Direct Agri Market Integration", body: "Connect with wholesale buyers in Lasalgaon & Koyambedu directly via trader entry portal.", tag: "APMC Mandi" }
+        ]
+      },
+      cotton: {
+        name: "Cotton",
+        bestMarket: "Guntur (₹7,450/Qtl)",
+        callout: "Medium staple cotton in <strong>Guntur</strong> commanding <strong>₹7,450/q</strong>, beating CCI base price.",
+        tip: "<strong>Selling Tip:</strong> Keep moisture content strictly below 8% for maximum price tier at CCI centers.",
+        markets: [
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 920, min: 7100, max: 7800, modal: 7450, spread: "+4.2%", highest: true },
+          { name: "Hyderabad", state: "Telangana", arrivals: 1100, min: 6900, max: 7650, modal: 7300, spread: "+2.1%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 650, min: 6850, max: 7500, modal: 7150, spread: "-1.0%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 400, min: 6700, max: 7350, modal: 7000, spread: "+0.5%", highest: false },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 320, min: 6600, max: 7200, modal: 6900, spread: "-2.3%", highest: false }
+        ],
+        trend: {
+          today: "₹7,450", avg: "₹7,220", peak: "₹7,650", trough: "₹6,850",
+          peakY: "₹7,650", avgY: "Avg ₹7,220", lowY: "₹6,850",
+          points: "80,160 160,170 240,150 320,130 400,110 480,120 560,90 640,75 720,80 800,60 840,45"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Kharif sowing: June–July with onset of monsoon. Deep black cotton soil preferred.", tag: "Kharif Crop" },
+          { title: "🧪 Fertilizer Schedule", body: "Basal: 40 kg N, 60 kg P2O5, 40 kg K2O/ha. Foliar spray 1% DAP + 1% KCl at square and boll formation.", tag: "NPK: 120:60:60" },
+          { title: "🐛 Pest & Disease Defense", body: "Pink Bollworm vigilance! Install 8 Delta traps/acre. Spray Profenophos 50 EC @ 2 ml/L if ETL exceeds.", tag: "Pink Bollworm" },
+          { title: "💧 Irrigation Protocols", body: "Drip irrigation at 0.8 ETo. Avoid waterlogging; critical phases are squaring and boll opening.", tag: "Boll Phase" },
+          { title: "🌾 Harvesting Indicators", body: "Pick clean seed cotton from fully opened bolls during dry sunny morning hours.", tag: "Moisture < 8%" },
+          { title: "💡 Direct Agri Market Integration", body: "Cotton Corporation of India (CCI) e-Kharid portal integration enabled for direct MSP payout.", tag: "CCI Certified" }
+        ]
+      },
+      groundnut: {
+        name: "Groundnut",
+        bestMarket: "Salem (₹6,850/Qtl)",
+        callout: "Bold pod groundnut trading high in <strong>Salem Agri Market</strong> at <strong>₹6,850/Qtl</strong>.",
+        tip: "<strong>Selling Tip:</strong> Oil mill procurement teams offering direct farm-gate pickup for lots >20 quintals.",
+        markets: [
+          { name: "Salem", state: "Tamil Nadu", arrivals: 580, min: 6450, max: 7150, modal: 6850, spread: "+3.8%", highest: true },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 720, min: 6300, max: 7000, modal: 6680, spread: "+1.4%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 440, min: 6250, max: 6900, modal: 6590, spread: "-0.9%", highest: false },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 390, min: 6150, max: 6800, modal: 6480, spread: "+0.2%", highest: false },
+          { name: "Hyderabad", state: "Telangana", arrivals: 510, min: 6050, max: 6700, modal: 6380, spread: "-2.1%", highest: false }
+        ],
+        trend: {
+          today: "₹6,850", avg: "₹6,540", peak: "₹7,100", trough: "₹6,150",
+          peakY: "₹7,100", avgY: "Avg ₹6,540", lowY: "₹6,150",
+          points: "80,170 160,180 240,160 320,140 400,130 480,110 560,95 640,80 720,70 800,60 840,40"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Kharif (June–July) and Rabi (Nov–Dec). Well-drained sandy loam soil with gypsum incorporation.", tag: "Dual Season" },
+          { title: "🧪 Fertilizer Schedule", body: "Apply Gypsum @ 400 kg/ha in 2 splits: 200 kg basal and 200 kg at pegging stage for pod filling.", tag: "Gypsum Critical" },
+          { title: "🐛 Pest & Disease Defense", body: "Tikka Leaf Spot & Spodoptera. Spray Carbendazim + Mancozeb @ 2 g/L on initial leaf spots.", tag: "Tikka Disease" },
+          { title: "💧 Irrigation Protocols", body: "Peg penetration and pod development are moisture sensitive. Irrigate at 10–12 day intervals.", tag: "Pegging Stage" },
+          { title: "🌾 Harvesting Indicators", body: "Pull sample plants: internal shell coloration turning dark brown indicates full maturity.", tag: "Dark Shell Test" },
+          { title: "💡 Direct Agri Market Integration", body: "Oil content testing certificate issued by APMC lab increases trade value by up to ₹250/qtl.", tag: "Oil Extraction" }
+        ]
+      },
+      maize: {
+        name: "Maize",
+        bestMarket: "Hyderabad (₹2,280/Qtl)",
+        callout: "Feed-grade maize in <strong>Hyderabad</strong> trending high due to poultry farm purchase orders.",
+        tip: "<strong>Selling Tip:</strong> Moisture below 14% prevents aflatoxin deduction penalties.",
+        markets: [
+          { name: "Hyderabad", state: "Telangana", arrivals: 890, min: 2100, max: 2450, modal: 2280, spread: "+3.4%", highest: true },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 650, min: 2050, max: 2380, modal: 2210, spread: "+1.2%", highest: false },
+          { name: "Salem", state: "Tamil Nadu", arrivals: 420, min: 1980, max: 2320, modal: 2150, spread: "-1.1%", highest: false },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 510, min: 1950, max: 2280, modal: 2110, spread: "+0.8%", highest: false },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 340, min: 1900, max: 2210, modal: 2050, spread: "-2.5%", highest: false }
+        ],
+        trend: {
+          today: "₹2,280", avg: "₹2,160", peak: "₹2,350", trough: "₹1,950",
+          peakY: "₹2,350", avgY: "Avg ₹2,160", lowY: "₹1,950",
+          points: "80,180 160,190 240,165 320,150 400,135 480,120 560,105 640,90 720,80 800,65 840,45"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Kharif and Rabi. Plant in rows 60 cm apart, with 20 cm intra-row spacing.", tag: "Row: 60x20 cm" },
+          { title: "🧪 Fertilizer Schedule", body: "Basal: 50 kg DAP, 40 kg Potash, 10 kg Zinc Sulphate/ha. Side-dress Urea at knee-high and tasseling.", tag: "Zinc Fortified" },
+          { title: "🐛 Pest & Disease Defense", body: "Fall Armyworm (FAW) threat. Spray Emamectin Benzoate 5 SG @ 0.4 g/L into plant whorls.", tag: "Fall Armyworm" },
+          { title: "💧 Irrigation Protocols", body: "Tasseling and silking stages must not suffer water stress. Irrigate once every 8–10 days.", tag: "Silking Stage" },
+          { title: "🌾 Harvesting Indicators", body: "Black layer formation at grain base and dry husk leaves indicate physiological maturity.", tag: "Black Layer Test" },
+          { title: "💡 Direct Agri Market Integration", body: "Feed manufacturing consortiums buying bulk at MSP ₹2,090/qtl.", tag: "Poultry Feed" }
+        ]
+      },
+      turmeric: {
+        name: "Turmeric",
+        bestMarket: "Salem (₹14,200/Qtl)",
+        callout: "Finger turmeric at <strong>Salem Agri Mandi</strong> hit a <strong>record high of ₹14,200/Qtl</strong>.",
+        tip: "<strong>Selling Tip:</strong> High curcumin (>3.5%) samples fetching ₹1,200/q extra premium from pharma extractors.",
+        markets: [
+          { name: "Salem", state: "Tamil Nadu", arrivals: 420, min: 12800, max: 15400, modal: 14200, spread: "+12.4%", highest: true },
+          { name: "Coimbatore", state: "Tamil Nadu", arrivals: 310, min: 12400, max: 14900, modal: 13800, spread: "+8.1%", highest: false },
+          { name: "Guntur", state: "Andhra Pradesh", arrivals: 550, min: 12100, max: 14500, modal: 13400, spread: "+4.5%", highest: false },
+          { name: "Chennai", state: "Tamil Nadu", arrivals: 220, min: 11800, max: 14100, modal: 13000, spread: "+1.9%", highest: false },
+          { name: "Hyderabad", state: "Telangana", arrivals: 380, min: 11500, max: 13800, modal: 12700, spread: "-0.5%", highest: false }
+        ],
+        trend: {
+          today: "₹14,200", avg: "₹12,850", peak: "₹15,400", trough: "₹10,500",
+          peakY: "₹15,400", avgY: "Avg ₹12,850", lowY: "₹10,500",
+          points: "80,210 160,195 240,180 320,155 400,140 480,120 560,95 640,75 720,60 800,45 840,30"
+        },
+        advisory: [
+          { title: "📅 Sowing & Season", body: "Sowing: May–June with pre-monsoon showers. Requires rich loamy soil with organic manure.", tag: "May–June Window" },
+          { title: "🧪 Fertilizer Schedule", body: "Basal: 25 tonnes FYM + 25 kg N, 60 kg P2O5, 60 kg K2O/ha. Top dress 25 kg N and 30 kg K2O at 30, 60 & 90 days.", tag: "NPK: 100:60:120" },
+          { title: "🐛 Pest & Disease Defense", body: "Rhizome Rot & Leaf Blotch. Treat mother seed rhizomes with Trichoderma viride @ 10 g/kg.", tag: "Bio-Seed Guard" },
+          { title: "💧 Irrigation Protocols", body: "Drip or ridge irrigation every 7–10 days. Ensure excellent drainage to avoid rhizome waterlogging.", tag: "Drainage Req." },
+          { title: "🌾 Harvesting Indicators", body: "Leaves turn dry and yellow-brown at 7–9 months. Boil fingers in water for 45 mins then sun dry.", tag: "Curcumin Boil" },
+          { title: "💡 Direct Agri Market Integration", body: "Erode & Salem turmeric auction yards live bidding synchronization active.", tag: "GI Tagged Mandi" }
+        ]
+      }
+    };
+
+    let activeCropKey = "rice";
+    let currentLang = "en";
+    let isAdminLoggedIn = false;
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // TOAST NOTIFIER
+    // ═══════════════════════════════════════════════════════════════════════════
+    function showToast(message, icon = "✅") {
+      const toast = document.getElementById('toast-notify');
+      document.getElementById('toast-icon').textContent = icon;
+      document.getElementById('toast-text').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // RENDER FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════════
+    function renderPricesTable(crop) {
+      const data = CROP_DATA[crop];
+      if (!data) return;
+
+      const cropTrans = (CROP_TRANSLATIONS[currentLang] && CROP_TRANSLATIONS[currentLang][crop]) || null;
+      const cropName = cropTrans ? cropTrans.name : data.name;
+      const bestMarket = cropTrans ? cropTrans.bestMarket : data.bestMarket;
+      const callout = (cropTrans && cropTrans.callout) ? cropTrans.callout : data.callout;
+      const tip = (cropTrans && cropTrans.tip) ? cropTrans.tip : data.tip;
+
+      const t = UI_TEXT[currentLang] || UI_TEXT.en;
+
+      document.getElementById('txt-crop-title').textContent = cropName;
+      document.getElementById('txt-best-market').textContent = `${t.bestMarketPrefix} ${bestMarket}`;
+      document.getElementById('adv-callout-text').innerHTML = callout;
+      document.getElementById('adv-tip-text').innerHTML = tip;
+
+      const tbody = document.getElementById('tbl-prices-body');
+      tbody.innerHTML = data.markets.map(m => {
+        const spreadClass = m.spread.startsWith('+') ? 'spread-up' : 'spread-dn';
+        const spreadIcon = m.spread.startsWith('+') ? '▲' : '▼';
+        const mNameLocalized = (MARKET_TRANSLATIONS[m.name] && MARKET_TRANSLATIONS[m.name][currentLang]) || m.name;
+        const mStateLocalized = (STATE_TRANSLATIONS[m.state] && STATE_TRANSLATIONS[m.state][currentLang]) || m.state;
+
+        return `
+          <tr>
+            <td>
+              <div class="market-name">
+                <span>${mNameLocalized}</span>
+                ${m.highest ? `<span class="rate-badge">${t.highestBadge}</span>` : ''}
+              </div>
+            </td>
+            <td>${mStateLocalized}</td>
+            <td>${m.arrivals} Qtl</td>
+            <td>₹${m.min.toLocaleString('en-IN')}</td>
+            <td>₹${m.max.toLocaleString('en-IN')}</td>
+            <td><span class="modal-price">₹${m.modal.toLocaleString('en-IN')}</span></td>
+            <td><span class="${spreadClass}">${spreadIcon} ${m.spread}</span></td>
+            <td>
+              <button class="btn-trend" onclick="openTrendForMarket('${m.name}')">${t.viewTrendBtn}</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderTrends(crop, marketName) {
+      const data = CROP_DATA[crop];
+      if (!data) return;
+
+      const cropTrans = (CROP_TRANSLATIONS[currentLang] && CROP_TRANSLATIONS[currentLang][crop]) || null;
+      const cropName = cropTrans ? cropTrans.name : data.name;
+      const activeM = marketName || 'Coimbatore';
+      const mNameLocalized = (MARKET_TRANSLATIONS[activeM] && MARKET_TRANSLATIONS[activeM][currentLang]) || activeM;
+
+      let subText = `Interactive visual trend for ${cropName} in ${mNameLocalized} Agri Market`;
+      if (currentLang === 'te') {
+        subText = `${mNameLocalized} వ్యవసాయ మార్కెట్‌లో ${cropName} ధరల ప్రత్యక్ష దృశ్య ధోరణి`;
+      } else if (currentLang === 'ta') {
+        subText = `${mNameLocalized} வேளாண் சந்தையில் ${cropName} நேரலை விலை போக்கு`;
+      } else if (currentLang === 'hi') {
+        subText = `${mNameLocalized} कृषि मंडी में ${cropName} का संवादात्मक दृश्य रुझान`;
+      }
+
+      document.getElementById('trend-sub-title').textContent = subText;
+      document.getElementById('mc-today').textContent = data.trend.today;
+      document.getElementById('mc-avg').textContent = data.trend.avg;
+      document.getElementById('mc-peak').textContent = data.trend.peak;
+      document.getElementById('mc-trough').textContent = data.trend.trough;
+
+      document.getElementById('ch-y-peak').textContent = data.trend.peakY;
+      document.getElementById('ch-y-avg').textContent = data.trend.avgY;
+      document.getElementById('ch-y-low').textContent = data.trend.lowY;
+
+      const todayPrefix = (UI_TEXT[currentLang] && UI_TEXT[currentLang].chToday) || "Today";
+      document.getElementById('ch-today-lbl').textContent = `${todayPrefix} (${data.trend.today})`;
+
+      // Update polyline and polygon points
+      document.getElementById('chart-poly').setAttribute('points', `${data.trend.points} 840,210 80,210`);
+      document.getElementById('chart-line').setAttribute('points', data.trend.points);
+    }
+
+    function renderAdvisory(crop) {
+      const data = CROP_DATA[crop];
+      if (!data) return;
+
+      const cropTrans = (CROP_TRANSLATIONS[currentLang] && CROP_TRANSLATIONS[currentLang][crop]) || null;
+      const list = (cropTrans && cropTrans.advisory) ? cropTrans.advisory : data.advisory;
+
+      const container = document.getElementById('adv-tiles-container');
+      container.innerHTML = list.map(item => `
+        <div class="adv-tile">
+          <div class="adv-tile-hdr">${item.title}</div>
+          <div class="adv-tile-body">${item.body}</div>
+          <div class="adv-tile-tag">${item.tag}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectCrop(cropKey) {
+      activeCropKey = cropKey;
+      document.querySelectorAll('.crop-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.crop === cropKey);
+      });
+
+      renderPricesTable(cropKey);
+      const mVal = document.getElementById('select-trend-market') ? document.getElementById('select-trend-market').value : 'Coimbatore';
+      renderTrends(cropKey, mVal);
+      renderAdvisory(cropKey);
+      
+      const admSel = document.getElementById('adm-crop-select');
+      if (admSel && admSel.value !== cropKey) admSel.value = cropKey;
+      if (isAdminLoggedIn) renderAdminPriceTable(cropKey);
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === viewName);
+      });
+
+      document.querySelectorAll('.view-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      if (viewName === 'admin') {
+        renderAdminState();
+      }
+
+      const mVal = document.getElementById('select-trend-market') ? document.getElementById('select-trend-market').value : 'Coimbatore';
+      if (viewName === 'trends') {
+        renderTrends(activeCropKey, mVal);
+      } else if (viewName === 'advisory') {
+        renderAdvisory(activeCropKey);
+      }
+    }
+
+    function openTrendForMarket(mName) {
+      const select = document.getElementById('select-trend-market');
+      if (select) select.value = mName;
+      window.location.hash = 'trends';
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // ADMIN AUTHENTICATION & REAL-TIME PRICE CONTROLLER
+    // ═══════════════════════════════════════════════════════════════════════════
+    function toggleAdminNav() {
+      if (!isAdminLoggedIn) {
+        window.location.hash = 'admin';
+        switchView('admin');
+      } else {
+        if (confirm("You are currently logged in as Administrator. Do you wish to log out?")) {
+          performAdminLogout();
+        }
+      }
+    }
+
+    function performAdminLogin(email) {
+      isAdminLoggedIn = true;
+      localStorage.setItem('agri_admin', 'true');
+      updateUserBadge();
+      renderAdminState();
+      showToast("Signed in as Administrator: P. Pawan Teja", "🛡️");
+    }
+
+    function handleAdminLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('adm-email').value;
+      performAdminLogin(email);
+    }
+
+    function performAdminLogout() {
+      isAdminLoggedIn = false;
+      localStorage.removeItem('agri_admin');
+      updateUserBadge();
+      renderAdminState();
+      showToast("Logged out of Admin Console. Switched to Guest Farmer view.", "👤");
+    }
+
+    function updateUserBadge() {
+      const t = UI_TEXT[currentLang] || UI_TEXT.en;
+      const textEl = document.getElementById('user-badge-text');
+      const chipEl = document.getElementById('role-chip');
+      const iconEl = document.getElementById('user-icon');
+
+      if (isAdminLoggedIn) {
+        textEl.textContent = t.userBadgeAdmin;
+        chipEl.textContent = t.roleChipAdmin;
+        chipEl.classList.add('admin-active');
+        iconEl.textContent = "🛡️";
+      } else {
+        textEl.textContent = t.userBadgeGuest;
+        chipEl.textContent = t.roleChipGuest;
+        chipEl.classList.remove('admin-active');
+        iconEl.textContent = "👤";
+      }
+    }
+
+    function renderAdminState() {
+      const loginBox = document.getElementById('admin-login-container');
+      const dashBox = document.getElementById('admin-dash-container');
+
+      if (isAdminLoggedIn) {
+        loginBox.style.display = 'none';
+        dashBox.style.display = 'block';
+        renderAdminPriceTable(document.getElementById('adm-crop-select').value || activeCropKey);
+      } else {
+        loginBox.style.display = 'block';
+        dashBox.style.display = 'none';
+      }
+    }
+
+    function renderAdminPriceTable(cropKey) {
+      const crop = CROP_DATA[cropKey];
+      if (!crop) return;
+
+      const tbody = document.getElementById('adm-prices-tbody');
+      tbody.innerHTML = crop.markets.map((m, idx) => `
+        <tr>
+          <td>
+            <strong>${m.name}</strong>
+            ${m.highest ? '<span class="rate-badge" style="margin-left:6px">Highest</span>' : ''}
+          </td>
+          <td>${m.state}</td>
+          <td>
+            <input type="number" class="input-table" id="adm-arr-${idx}" value="${m.arrivals}"> Qtl
+          </td>
+          <td>
+            ₹<input type="number" class="input-table" id="adm-min-${idx}" value="${m.min}">
+          </td>
+          <td>
+            ₹<input type="number" class="input-table" id="adm-max-${idx}" value="${m.max}">
+          </td>
+          <td>
+            ₹<input type="number" class="input-table" style="color:var(--brand-green);font-weight:800" id="adm-mod-${idx}" value="${m.modal}">
+          </td>
+          <td>
+            <input type="text" class="input-table" style="width:70px" id="adm-spd-${idx}" value="${m.spread}">
+          </td>
+          <td>
+            <button class="btn-save-row" onclick="saveAdminPriceRow('${cropKey}', ${idx})">💾 Save Rate</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function saveAdminPriceRow(cropKey, index) {
+      const crop = CROP_DATA[cropKey];
+      if (!crop || !crop.markets[index]) return;
+
+      const m = crop.markets[index];
+      const newArr = parseInt(document.getElementById(`adm-arr-${index}`).value) || m.arrivals;
+      const newMin = parseInt(document.getElementById(`adm-min-${index}`).value) || m.min;
+      const newMax = parseInt(document.getElementById(`adm-max-${index}`).value) || m.max;
+      const newMod = parseInt(document.getElementById(`adm-mod-${index}`).value) || m.modal;
+      const newSpd = document.getElementById(`adm-spd-${index}`).value.trim() || m.spread;
+
+      // Update in repository
+      m.arrivals = newArr;
+      m.min = newMin;
+      m.max = newMax;
+      m.modal = newMod;
+      m.spread = newSpd;
+
+      // Recalculate highest market
+      let highestModal = 0;
+      let highestMarket = null;
+      crop.markets.forEach(item => {
+        item.highest = false;
+        if (item.modal > highestModal) {
+          highestModal = item.modal;
+          highestMarket = item;
+        }
+      });
+      if (highestMarket) {
+        highestMarket.highest = true;
+        crop.bestMarket = `${highestMarket.name} (₹${highestModal.toLocaleString('en-IN')}/Qtl)`;
+      }
+
+      // Update trends if this was the selected trend market
+      if (crop.trend) {
+        crop.trend.today = `₹${newMod.toLocaleString('en-IN')}`;
+      }
+
+      // Add audit log
+      const actList = document.getElementById('admin-activity-list');
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const newLog = document.createElement('div');
+      newLog.style = "padding:8px 12px;background:#f0fdf4;border-radius:6px;border:1px solid var(--accent-green)";
+      newLog.innerHTML = `⚡ <strong>${now} [Admin Override]:</strong> Updated ${m.name} rates for ${crop.name.toUpperCase()} (Modal: ₹${newMod.toLocaleString('en-IN')}/Qtl, Min: ₹${newMin}, Max: ₹${newMax}). Broadcasted live!`;
+      actList.insertBefore(newLog, actList.firstChild);
+
+      // Re-render UI
+      renderAdminPriceTable(cropKey);
+      renderPricesTable(activeCropKey);
+      const mVal = document.getElementById('select-trend-market') ? document.getElementById('select-trend-market').value : 'Coimbatore';
+      renderTrends(activeCropKey, mVal);
+
+      showToast(`Saved & broadcasted ${m.name} (${crop.name}) rate: ₹${newMod.toLocaleString('en-IN')}/Qtl live!`, "🚀");
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // LANGUAGE SWITCHER ENGINE
+    // ═══════════════════════════════════════════════════════════════════════════
+    function setLanguage(lang) {
+      if (!['en', 'te', 'ta', 'hi'].includes(lang)) {
+        if (lang.includes('Telugu') || lang.includes('తెలుగు')) lang = 'te';
+        else if (lang.includes('Tamil') || lang.includes('தமிழ்')) lang = 'ta';
+        else if (lang.includes('Hindi') || lang.includes('हिन्दी')) lang = 'hi';
+        else lang = 'en';
+      }
+
+      currentLang = lang;
+      try { localStorage.setItem('agri_lang', lang); } catch (e) {}
+
+      const select = document.getElementById('select-lang');
+      if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === lang || select.options[i].text.toLowerCase().includes(lang)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      const t = UI_TEXT[lang] || UI_TEXT.en;
+
+      // Header & Brand
+      document.getElementById('header-brand-sub').textContent = t.brandSub;
+      document.getElementById('sync-text').textContent = t.syncLive;
+      updateUserBadge();
+
+      // Navigation tabs
+      document.getElementById('nav-prices').textContent = t.navPrices;
+      document.getElementById('nav-trends').textContent = t.navTrends;
+      document.getElementById('nav-advisory').textContent = t.navAdvisory;
+      document.getElementById('nav-calculator').textContent = t.navCalculator;
+      document.getElementById('nav-farm').textContent = t.navFarm;
+      document.getElementById('nav-trader').textContent = t.navTrader;
+      document.getElementById('nav-admin').textContent = t.navAdmin;
+
+      // Welcome banner
+      document.getElementById('welcome-title').textContent = t.welcomeTitle;
+      document.getElementById('welcome-sub').textContent = t.welcomeSub;
+      document.getElementById('stat-markets-lbl').textContent = t.statMarkets;
+      document.getElementById('stat-crops-lbl').textContent = t.statCrops;
+      document.getElementById('stat-spread-lbl').textContent = t.statSpread;
+
+      // Crop Selector Chips
+      document.querySelectorAll('.crop-chip').forEach(btn => {
+        const cKey = btn.dataset.crop;
+        if (CROP_CHIP_NAMES[cKey] && CROP_CHIP_NAMES[cKey][lang]) {
+          btn.textContent = CROP_CHIP_NAMES[cKey][lang];
+        }
+      });
+
+      // Table headers & meta
+      document.getElementById('txt-comparison-suffix').textContent = t.comparisonSuffix;
+      document.getElementById('txt-sample-meta').textContent = t.sampleMeta;
+      document.getElementById('th-market').textContent = t.thMarket;
+      document.getElementById('th-state').textContent = t.thState;
+      document.getElementById('th-arrivals').textContent = t.thArrivals;
+      document.getElementById('th-min').textContent = t.thMin;
+      document.getElementById('th-max').textContent = t.thMax;
+      document.getElementById('th-modal').textContent = t.thModal;
+      document.getElementById('th-spread').textContent = t.thSpread;
+      document.getElementById('th-action').textContent = t.thAction;
+
+      // Weather widget
+      document.getElementById('weather-condition').textContent = t.weatherTitle;
+      document.getElementById('weather-station-lbl').textContent = t.weatherStation;
+      document.getElementById('weather-hum').textContent = t.weatherHum;
+      document.getElementById('weather-rain').textContent = t.weatherRain;
+      document.getElementById('weather-wind').textContent = t.weatherWind;
+
+      // Advisory box
+      document.getElementById('adv-card-title').textContent = t.advCardTitle;
+      document.getElementById('adv-market-badge').textContent = t.favorableMarket;
+      document.getElementById('btn-guide-link').textContent = t.guideLink;
+
+      // Trend tab
+      document.getElementById('trend-main-title').textContent = t.trendTitle;
+      document.getElementById('lbl-trend-market').textContent = t.selectMarketLbl;
+      document.getElementById('lbl-mc-today').textContent = t.mcToday;
+      document.getElementById('lbl-mc-avg').textContent = t.mcAvg;
+      document.getElementById('lbl-mc-peak').textContent = t.mcPeak;
+      document.getElementById('lbl-mc-trough').textContent = t.mcTrough;
+      document.getElementById('ch-days-30').textContent = t.chDays30;
+      document.getElementById('ch-days-15').textContent = t.chDays15;
+
+      // Trend market select options
+      const trendSelect = document.getElementById('select-trend-market');
+      if (trendSelect) {
+        const curVal = trendSelect.value || 'Coimbatore';
+        trendSelect.innerHTML = Object.entries(TREND_MARKET_OPTIONS).map(([val, opt]) => `
+          <option value="${val}" ${val === curVal ? 'selected' : ''}>${opt[lang] || opt.en}</option>
+        `).join('');
+      }
+
+      // Advisory tab
+      document.getElementById('adv-main-title').textContent = t.advTitle;
+      document.getElementById('adv-main-sub').textContent = t.advSub;
+      document.getElementById('lbl-weather-sim').textContent = t.weatherSimLbl;
+      const weatherSelect = document.getElementById('select-weather-sim');
+      if (weatherSelect && WEATHER_OPTIONS[lang]) {
+        const curIdx = Math.max(0, weatherSelect.selectedIndex);
+        weatherSelect.innerHTML = WEATHER_OPTIONS[lang].map((opt, i) => `
+          <option ${i === curIdx ? 'selected' : ''}>${opt}</option>
+        `).join('');
+      }
+
+      // Calculator tab
+      document.getElementById('calc-main-title').textContent = t.calcTitle;
+      document.getElementById('calc-main-sub').textContent = t.calcSub;
+      document.getElementById('lbl-fc-crop').textContent = t.lblCrop;
+      document.getElementById('lbl-fc-acres').textContent = t.lblAcres;
+      document.getElementById('btn-calc-submit').textContent = t.btnCalc;
+      document.getElementById('lbl-dap').textContent = t.lblDap;
+      document.getElementById('lbl-mop').textContent = t.lblMop;
+      document.getElementById('lbl-urea').textContent = t.lblUrea;
+
+      // Farm Profile tab
+      document.getElementById('farm-main-title').textContent = t.farmTitle;
+      document.getElementById('farm-main-sub').textContent = t.farmSub;
+      document.getElementById('lbl-fp-name').textContent = t.lblFpName;
+      document.getElementById('lbl-fp-mobile').textContent = t.lblFpMobile;
+      document.getElementById('lbl-fp-loc').textContent = t.lblFpLoc;
+      document.getElementById('lbl-fp-area').textContent = t.lblFpArea;
+      document.getElementById('btn-fp-update').textContent = t.btnFpUpdate;
+
+      // Trader Entry tab
+      document.getElementById('trader-main-title').textContent = t.traderTitle;
+      document.getElementById('trader-main-sub').textContent = t.traderSub;
+      document.getElementById('lbl-tf-crop').textContent = t.lblCommodity;
+      document.getElementById('lbl-tf-market').textContent = t.lblAgriMarket;
+      document.getElementById('lbl-tf-arr').textContent = t.lblArrivals;
+      document.getElementById('lbl-tf-min').textContent = t.lblMin;
+      document.getElementById('lbl-tf-max').textContent = t.lblMax;
+      document.getElementById('lbl-tf-mod').textContent = t.lblModal;
+      document.getElementById('btn-trader-submit').textContent = t.btnTraderSubmit;
+
+      // Admin tab
+      document.getElementById('admin-main-title').textContent = t.adminTitle;
+      document.getElementById('admin-main-sub').textContent = t.adminSub;
+      document.getElementById('lbl-sys-status').textContent = t.lblSysStatus;
+      document.getElementById('lbl-act-farmers').textContent = t.lblActFarmers;
+      document.getElementById('lbl-weather-radar').textContent = t.lblWeatherRadar;
+      document.getElementById('lbl-activity-stream').textContent = t.activityStream;
+
+      // Re-render active views with chosen language
+      renderPricesTable(activeCropKey);
+      renderTrends(activeCropKey, trendSelect ? trendSelect.value : 'Coimbatore');
+      renderAdvisory(activeCropKey);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // EVENT LISTENERS & HASH ROUTING
+    // ═══════════════════════════════════════════════════════════════════════════
+    document.getElementById('select-lang').addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+    });
+
+    document.getElementById('crop-chips').addEventListener('click', (e) => {
+      const btn = e.target.closest('.crop-chip');
+      if (btn) {
+        selectCrop(btn.dataset.crop);
+      }
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const view = a.dataset.view;
+        switchView(view);
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '') || 'prices';
+      switchView(hash);
+    });
+
+    document.getElementById('select-trend-market').addEventListener('change', (e) => {
+      renderTrends(activeCropKey, e.target.value);
+    });
+
+    // Calculator Form
+    document.getElementById('calc-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const acres = parseFloat(document.getElementById('fc-acres').value) || 1;
+      const crop = document.getElementById('fc-crop').value;
+
+      let dapPerAcre = 50, mopPerAcre = 20, ureaPerAcre = 45;
+      if (crop === 'wheat') { dapPerAcre = 40; mopPerAcre = 25; ureaPerAcre = 50; }
+      else if (crop === 'tomato') { dapPerAcre = 60; mopPerAcre = 40; ureaPerAcre = 55; }
+      else if (crop === 'onion') { dapPerAcre = 45; mopPerAcre = 30; ureaPerAcre = 40; }
+      else if (crop === 'cotton') { dapPerAcre = 55; mopPerAcre = 35; ureaPerAcre = 60; }
+      else if (crop === 'turmeric') { dapPerAcre = 70; mopPerAcre = 50; ureaPerAcre = 65; }
+
+      document.getElementById('res-dap').textContent = `${(dapPerAcre * acres).toFixed(1)} kg`;
+      document.getElementById('res-mop').textContent = `${(mopPerAcre * acres).toFixed(1)} kg`;
+      document.getElementById('res-urea').textContent = `${(ureaPerAcre * acres).toFixed(1)} kg`;
+
+      const t = UI_TEXT[currentLang] || UI_TEXT.en;
+      document.getElementById('res-doses-title').textContent = `${t.resDoses} ${acres} Acres of ${crop.toUpperCase()}:`;
+    });
+
+    // Trader Form
+    document.getElementById('trader-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const crop = document.getElementById('tf-crop').value;
+      const market = document.getElementById('tf-market').value;
+      const arrivals = parseInt(document.getElementById('tf-arr').value);
+      const min = parseInt(document.getElementById('tf-min').value);
+      const max = parseInt(document.getElementById('tf-max').value);
+      const modal = parseInt(document.getElementById('tf-mod').value);
+
+      if (CROP_DATA[crop]) {
+        const item = CROP_DATA[crop].markets.find(m => m.name === market);
+        if (item) {
+          item.arrivals = arrivals;
+          item.min = min;
+          item.max = max;
+          item.modal = modal;
+        }
+      }
+
+      showToast(`Successfully posted ${market} (${crop.toUpperCase()}) rate: ₹${modal}/Qtl`, "✅");
+      selectCrop(crop);
+      window.location.hash = 'prices';
+    });
+
+    // Farm Profile Form
+    document.getElementById('farm-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Farm profile updated successfully!', '🚜');
+    });
+
+    // Keyboard Shortcuts for Coursework Presentations:
+    // 1 -> Prices (Module 1/2), 2 -> Trends (Module 2), 3 -> Advisory (Module 3)
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+      if (e.key === '1') window.location.hash = 'prices';
+      if (e.key === '2') window.location.hash = 'trends';
+      if (e.key === '3') window.location.hash = 'advisory';
+      if (e.key === '4') window.location.hash = 'calculator';
+      if (e.key === '5') window.location.hash = 'farm';
+      if (e.key === '6') window.location.hash = 'trader';
+      if (e.key === '7') window.location.hash = 'admin';
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // INITIAL BOOTSTRAP
+    // ═══════════════════════════════════════════════════════════════════════════
+    isAdminLoggedIn = localStorage.getItem('agri_admin') === 'true';
+    const savedLang = localStorage.getItem('agri_lang') || 'en';
+    setLanguage(savedLang);
+    updateUserBadge();
+
+    const initialHash = window.location.hash.replace('#', '') || 'prices';
+    selectCrop('rice');
+    switchView(initialHash);
+  </script>
+</body>
+</html>
