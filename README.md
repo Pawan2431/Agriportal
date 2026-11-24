@@ -1,6 +1,6 @@
 # 🌾 AgriPrice Portal
 ### Agriculture Market Price Portal with Farmer Advisory Services
-**Course Code:** ITA0334 – Mobile Computing / CSA4309  
+**Course Code:** CSA4309– Internet Programming / CSA4309  
 **Institution:** SIMATS Engineering (Saveetha Institute of Medical and Technical Sciences)
 
 ---
@@ -9,11 +9,11 @@
 
 | Student Name | Register ID | Role / Module Assigned |
 | :--- | :--- | :--- |
-| **M. Koushik** | 192372301 | **Module 1 — Farmer Management** (Authentication, profile management, land holdings, alerts) |
+| **A.Abhinay Sai** | 192372240 | **Module 1 — Farmer Management** (Authentication, profile management, land holdings, alerts) |
 | **P. Pawan Teja** | 192372303 | **Module 2 — Market Price Management** (Live APMC prices, inter-market spread, 30-day trends) |
-| **S. Ravi Sankar Reddy** | 192372302 | **Module 3 — Farmer Advisory Services** (Agronomic guidance, pest defense, NPK calculator) |
+**Module 3 — Farmer Advisory Services** (Agronomic guidance, pest defense, NPK calculator) |
 
-**Guided By:** Dr. Nagarajan Govindasami
+**Guided By:** Dr. Pandimurugun vellaisamy
 
 ---
 
